@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import { assets } from '../assets/assets';
+import { Link } from 'react-router-dom';
 import { FaDribbble, FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaPhone, FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 
 function Hero() {
@@ -50,12 +51,12 @@ function Hero() {
           
           {/* Action Buttons */}
           <div className="flex space-x-4">
-            <a href="/projects" className="px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition duration-300 shadow-lg shadow-purple-600/20">
+            <Link to="/projects" className="px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition duration-300 shadow-lg shadow-purple-600/20">
               View Work
-            </a>
-            <a href="/contact" className="px-6 py-3 border border-purple-500 text-purple-400 rounded-lg font-medium hover:bg-purple-500/10 transition duration-300">
+            </Link>
+            <Link to="/contact" className="px-6 py-3 border border-purple-500 text-purple-400 rounded-lg font-medium hover:bg-purple-500/10 transition duration-300">
               Contact Me
-            </a>
+            </Link>
           </div>
 
           {/* Social Icons */}
