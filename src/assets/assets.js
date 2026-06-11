@@ -102,15 +102,15 @@ export const projects = [
     image: hotel_image,
     tech: ["Express.js", "Node.js", "MongoDB", "EJS"],
     demo: "https://delta-project-j8uf.onrender.com",
-    code: "#",
+    code: null,
   },
   {
     title: "Zerodha - Stock Trading Platform",
     description: "A stock trading platform for managing portfolios, tracking market data, and executing trades.",
     image: stock_trading,
     tech: ["React", "Node.js", "Express.js", "MongoDB"],
-    demo: "#",
-    code: "#",
+    demo: null,
+    code: null,
   },
   {
     title: "Meetify - Real Time Video Calling Platform",
@@ -118,15 +118,15 @@ export const projects = [
     image: video_call,
     tech: ["Socket.io","React", "Node.js", "Express.js", "MongoDB"],
     demo: "https://meetify-frontend-48uw.onrender.com",
-    code: "#",
+    code: null,
   },
   {
     title: "Personal Portfolio Website",
     description: "A personal portfolio to showcase projects, skills, and blogs with a clean and modern design.",
     image: portfolio,
     tech: ["React", "Tailwind CSS", "Framer Motion","MongoDB"],
-    demo: "#",
-    code: "#",
+    demo: "https://portfolio-kohl-one-v7sfueoexw.vercel.app/",
+    code: "https://github.com/Riju-hub/portfolio",
   },
   
   {
@@ -134,8 +134,8 @@ export const projects = [
     description: "A machine learning system that predicts loan approval eligibility based on applicant data.",
     image: credit,
     tech: ["Python", "Scikit-learn", "Pandas", "NumPy", "ML"],
-    demo: "#",
-    code: "#",
+    demo: null,
+    code: null,
   },
   
   {
@@ -143,8 +143,8 @@ export const projects = [
     description: "An machine learning system that segments customers based on purchasing behavior for targeted marketing.",
     image: customer,
     tech: ["Python", "Scikit-learn", "Pandas", "NumPy", "ML"],
-    demo: "#",
-    code: "#",
+    demo: null,
+    code: null,
   }
 ];
 
