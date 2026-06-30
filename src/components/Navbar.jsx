@@ -20,7 +20,8 @@ function Navbar() {
 
         {/* Desktop Links */}
         <div className='hidden md:flex space-x-8 lg:space-x-10 font-medium'>
-          {['home', 'about', 'skills', 'projects', 'education', 'experience', 'contact'].map((item) => (
+          {/* {['home', 'about', 'skills', 'projects', 'education', 'experience', 'contact'].map((item) => ( */}
+          {['home', 'about', 'skills', 'projects', 'education', 'contact'].map((item) => (
             <Link 
               key={item}
               to={`/${item}`} 
@@ -45,7 +46,8 @@ function Navbar() {
       {/* Mobile Menu Dropdown - Fixed Overlay Structure */}
       {showMenu && (
         <div className='md:hidden fixed top-0 left-0 w-full h-screen bg-neutral-950/98 backdrop-blur-lg flex flex-col space-y-6 text-center justify-center items-center z-40 px-6 transition-all duration-300'>
-          {['home', 'about', 'skills', 'projects', 'education', 'experience', 'contact'].map((item) => (
+          {/* {['home', 'about', 'skills', 'projects', 'education', 'experience', 'contact'].map((item) => ( */}
+          {['home', 'about', 'skills', 'projects', 'education', 'contact'].map((item) => (
             <Link 
               key={item}
               onClick={() => setShowMenu(false)} 

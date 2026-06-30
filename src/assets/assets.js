@@ -1,6 +1,6 @@
 import { FaLightbulb, FaPaintBrush, FaCode, FaReact, FaServer, FaMobileAlt, FaTools, FaNodeJs, FaStripe, FaVuejs, FaFire, FaDatabase, FaCloud, FaRobot, FaChartBar, FaBrain, FaChartLine } from 'react-icons/fa';
 
-import profileImg from '../assets/my_image.jpeg';
+import profileImg from '../assets/bhabasindhu_image.png';
 import hotel_image from '../assets/hotel_image.webp';
 import stock_trading from '../assets/stock_trading.png';
 import portfolio from '../assets/portfolio.jpg';
@@ -148,16 +148,16 @@ export const projects = [
   }
 ];
 
-export const workData = [
-  {
-    role: "AI Intern",
-    company: "Samsung Inovation Campus",
-    duration: "Sep 2025 - Nov 2025",
-    description:
-      "Completed hands-on training in AI and Machine Learning, working with Python, Pandas, NumPy, and scikit-learn. Built machine learning models, performed data preprocessing, and analyzed datasets through practical projects.",
-    color: "purple"
-  }
-];
+// export const workData = [
+//   {
+//     role: "AI Intern",
+//     company: "Samsung Inovation Campus",
+//     duration: "Sep 2025 - Nov 2025",
+//     description:
+//       "Completed hands-on training in AI and Machine Learning, working with Python, Pandas, NumPy, and scikit-learn. Built machine learning models, performed data preprocessing, and analyzed datasets through practical projects.",
+//     color: "purple"
+//   }
+// ];
 
 export const educationData = [
   {
