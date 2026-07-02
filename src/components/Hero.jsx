@@ -62,16 +62,16 @@ function Hero() {
               Bhabasindhu Das
             </span>
           </h1>
-
           {/* Rotating typewriter */}
-          <div className="w-max block min-h-[40px] md:min-h-[50px]">
-             <h2
-               key={key}
-               className="text-2xl md:text-4xl font-extrabold mb-6 typewriter text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 tracking-wide"
-             >
-               {titles[index]}
-             </h2>
-           </div>
+          <div className="w-full flex justify-center md:block min-h-[40px] md:min-h-[50px]">
+            <h2
+              key={key}
+              className="w-max text-center md:text-left text-2xl md:text-4xl font-extrabold mb-6 typewriter text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 tracking-wide"
+              style={{ '--type-width': `${titles[index].length}ch` }}
+            >
+              {titles[index]}
+            </h2>
+          </div>
 
           <p className="text-sm sm:text-base md:text-lg text-gray-400 mb-8 max-w-lg mx-auto md:mx-0 leading-relaxed">
             I build scalable web applications and intelligent systems, bridging the gap between{' '}

@@ -24,6 +24,7 @@
   --color-yellow: #F59E0B;   /* Perfect for Databases/SQL */
   --color-amber: #F97316;    /* Perfect for Data Science/Python */
 }
+
 .typewriter {
   display: inline-block;
   overflow: hidden;
@@ -33,14 +34,14 @@
   padding-right: 4px;
   filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-purple) 60%, transparent));
 
-  animation: 
+  animation:
     typing 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards,
     blink-caret 0.75s step-end infinite;
 }
 
 @keyframes typing {
   from { width: 0; }
-  to { width: 100%; }
+  to { width: var(--type-width); }
 }
 
 @keyframes blink-caret {
