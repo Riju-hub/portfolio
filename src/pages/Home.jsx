@@ -12,13 +12,13 @@ function Home() {
   }, []);
     return ( 
         <div>
-            <Hero/>
-            <About/>
-            <Skills/>
-            <Projects/>
-            <Education/>
-            {/* <Work/> */}
-            <Contact/>
+            <section id="home"><Hero/></section>
+            <section id="about"><About/></section>
+            <section id="skills"><Skills/></section>
+            <section id="projects"><Projects/></section>
+            {/* <section id="experience"><Work/></section> */}
+            <section id="education"><Education/></section>
+            <section id="contact"><Contact/></section>
         </div>
      );
 }

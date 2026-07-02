@@ -29,7 +29,7 @@ export const aboutInfo = [
     icon: FaBrain,
     title: 'AI & ML Enthusiast',
     description: 'Exploring machine learning, deep learning, and data-driven technologies to create intelligent solutions.',
-    color: 'text-blue'
+    color: 'text-purple'
   },
   {
     icon: FaChartLine,

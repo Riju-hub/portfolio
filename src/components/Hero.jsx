@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import { assets } from '../assets/assets';
-import { Link } from 'react-router-dom';
-import { FaDribbble, FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaPhone, FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaFacebook, FaInstagram, FaArrowDown } from 'react-icons/fa';
 
 function Hero() {
   const titles = ["FULL STACK DEVELOPER", "DATA SCIENTIST", "AI ML ENGINEER"];
@@ -12,80 +11,120 @@ function Hero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % titles.length);
-      setKey((prev) => prev + 1); // Safely triggers CSS typewriter re-animation
+      setKey((prev) => prev + 1);
     }, 3500);
 
     return () => clearInterval(interval);
   }, [titles.length]);
 
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const socialLinks = [
+    { icon: FaGithub, url: 'https://github.com/Riju-hub/', label: 'GitHub', hover: 'hover:bg-neutral-700' },
+    { icon: FaLinkedin, url: 'https://www.linkedin.com/in/bhabasindhu-das-web', label: 'LinkedIn', hover: 'hover:bg-blue-600' },
+    { icon: FaTwitter, url: 'https://x.com/BhabasindhuBhab', label: 'Twitter', hover: 'hover:bg-neutral-900' },
+    { icon: FaFacebook, url: 'https://www.facebook.com/profile.php?id=61577756120368', label: 'Facebook', hover: 'hover:bg-blue-700' },
+    { icon: FaInstagram, url: 'https://www.instagram.com/bhabasindhudas621/', label: 'Instagram', hover: 'hover:bg-pink-600' },
+  ];
+
   return ( 
-    <motion.div 
-      initial={{ opacity: 0, y: 50 }} 
-      whileInView={{ opacity: 1, y: 0 }} 
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      viewport={{ once: true }}
+    <section
       id='home'
-      className='min-h-screen flex items-center pt-20 pb-16 bg-gradient-to-r from-[#1a1a1a] via-[#2d2d2d] to-[#1a1a1a]'
+      className='relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden bg-[#141414]'
     >
-      <div className='container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-10'>
+      {/* Animated background blobs */}
+      <div className='absolute inset-0 overflow-hidden pointer-events-none'>
+        <div className='absolute top-[-10%] left-[-10%] w-72 h-72 md:w-96 md:h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse'></div>
+        <div className='absolute bottom-[-10%] right-[-10%] w-72 h-72 md:w-96 md:h-96 bg-pink-600/20 rounded-full blur-3xl animate-pulse' style={{ animationDelay: '1s' }}></div>
+        <div className='absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:48px_48px]'></div>
+      </div>
+
+      <div className='relative container mx-auto px-6 flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-10'>
         
         {/* Left Side Content */}
-        <div className='md:w-1/2 mb-10 md:mb-0 z-10'>
-          <h1 className='text-4xl md:text-6xl font-extrabold mb-4 text-white tracking-tight'>
-            Hi, I'm <span className='text-purple-500 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-400'>Bhabasindhu Das</span>
-          </h1>
-
-          {/* MODERN ROTATING TYPEWRITER CONTAINER */}
-          <div className="w-max block min-h-[40px] md:min-h-[50px]">
-            <h2
-              key={key}
-              className="text-2xl md:text-4xl font-extrabold mb-6 typewriter text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 tracking-wide"
-            >
-              {titles[index]}
-            </h2>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className='w-full md:w-1/2 text-center md:text-left z-10'
+        >
+          {/* Availability badge */}
+          <div className='inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neutral-800/60 border border-neutral-700 text-xs md:text-sm text-gray-300 mb-6'>
+            <span className='w-2 h-2 rounded-full bg-green-500 animate-pulse'></span>
+            Available for new opportunities
           </div>
 
-          <p className="text-base md:text-lg text-gray-300 mb-8 max-w-lg leading-relaxed">
-            I build scalable web applications and intelligent systems, bridging the gap between <span className="text-purple-400 font-medium">full-stack development</span>, <span className="text-pink-400 font-medium">data science</span>, and actionable <span className="text-indigo-400 font-medium">AI/ML solutions</span>.
+          <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-white tracking-tight leading-tight'>
+            Hi, I'm{' '}
+            <span className='text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400'>
+              Bhabasindhu Das
+            </span>
+          </h1>
+
+          {/* Rotating typewriter */}
+          <div className="w-max block min-h-[40px] md:min-h-[50px]">
+             <h2
+               key={key}
+               className="text-2xl md:text-4xl font-extrabold mb-6 typewriter text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 tracking-wide"
+             >
+               {titles[index]}
+             </h2>
+           </div>
+
+          <p className="text-sm sm:text-base md:text-lg text-gray-400 mb-8 max-w-lg mx-auto md:mx-0 leading-relaxed">
+            I build scalable web applications and intelligent systems, bridging the gap between{' '}
+            <span className="text-purple-400 font-medium">full-stack development</span>,{' '}
+            <span className="text-pink-400 font-medium">data science</span>, and actionable{' '}
+            <span className="text-indigo-400 font-medium">AI/ML solutions</span>.
           </p>
           
           {/* Action Buttons */}
-          <div className="flex space-x-4">
-            <Link to="/projects" className="px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition duration-300 shadow-lg shadow-purple-600/20">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mb-10">
+            <button
+              onClick={() => scrollToSection('projects')}
+              className="px-7 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-purple-600/30 hover:-translate-y-0.5 transition duration-300"
+            >
               View Work
-            </Link>
-            <Link to="/contact" className="px-6 py-3 border border-purple-500 text-purple-400 rounded-lg font-medium hover:bg-purple-500/10 transition duration-300">
+            </button>
+            <button
+              onClick={() => scrollToSection('contact')}
+              className="px-7 py-3 border border-purple-500/60 text-purple-300 rounded-xl font-semibold hover:bg-purple-500/10 hover:-translate-y-0.5 transition duration-300"
+            >
               Contact Me
-            </Link>
+            </button>
           </div>
 
           {/* Social Icons */}
-          <div className="flex flex-wrap gap-4 mt-12">
-            <a href="https://github.com/Riju-hub/" target="_blank" rel="noopener noreferrer" title="GitHub" className='w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-neutral-700 transition duration-300 border border-neutral-700'>
-              <FaGithub size={20}/>
-            </a>
-            <a href="https://www.linkedin.com/in/bhabasindhu-das-71b147370" target="_blank" rel="noopener noreferrer" title="LinkedIn" className='w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition duration-300 border border-neutral-700'>
-              <FaLinkedin size={20}/>
-            </a>
-            <a href="https://x.com/BhabasindhuBhab" target="_blank" rel="noopener noreferrer" title="Twitter" className='w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-neutral-900 transition duration-300 border border-neutral-700'>
-              <FaTwitter size={20}/>
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=61577756120368" target="_blank" rel="noopener noreferrer" title="Facebook" className='w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-700 transition duration-300 border border-neutral-700'>
-              <FaFacebook size={20}/>
-            </a>
-            <a href="https://www.instagram.com/bhabasindhudas621/" target="_blank" rel="noopener noreferrer" title="Instagram" className='w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-pink-600 transition duration-300 border border-neutral-700'>
-              <FaInstagram size={20}/>
-            </a>
+          <div className="flex flex-wrap justify-center md:justify-start gap-3">
+            {socialLinks.map(({ icon: Icon, url, label, hover }) => (
+              <a
+                key={label}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={label}
+                className={`w-11 h-11 rounded-full bg-neutral-800/70 flex items-center justify-center text-gray-400 hover:text-white ${hover} transition duration-300 border border-neutral-700 hover:scale-110`}
+              >
+                <Icon size={18}/>
+              </a>
+            ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Side Image */}
-        <div className="md:w-1/2 flex justify-center z-10">
-          <div className="relative w-64 h-64 md:w-80 md:h-80">
-            {/* Ambient Background Glow ring */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 opacity-40 blur-md animate-pulse"></div>
-            
-            {/* Floating Framer Motion Image */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          className="w-full md:w-1/2 flex justify-center z-10"
+        >
+          <div className="relative w-52 h-52 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+            {/* Rotating gradient ring */}
+            <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-purple-500 via-pink-500 to-indigo-500 opacity-60 blur-2xl animate-pulse"></div>
+            <div className="absolute inset-0 rounded-full border-2 border-purple-500/30"></div>
+
             <motion.img
               animate={{ y: [0, -15, 0] }}
               transition={{ duration: 4, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
@@ -94,10 +133,20 @@ function Hero() {
               alt="Bhabasindhu Das Profile" 
             />
           </div>
-        </div>
+        </motion.div>
 
       </div>
-    </motion.div>
+
+      {/* Scroll down indicator */}
+      <button
+        onClick={() => scrollToSection('about')}
+        aria-label="Scroll to About section"
+        className='hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-gray-500 hover:text-purple-400 transition duration-300 z-10'
+      >
+        <span className='text-xs uppercase tracking-widest'>Scroll</span>
+        <FaArrowDown className='animate-bounce' size={14} />
+      </button>
+    </section>
   );
 }
 
