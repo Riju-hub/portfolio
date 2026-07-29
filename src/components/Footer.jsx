@@ -66,12 +66,12 @@ function Footer() {
           <div>
             <h4 className='text-white font-semibold mb-4 uppercase tracking-wider text-sm'>Get in Touch</h4>
             <div className='flex flex-col gap-2 items-center md:items-start text-gray-400 text-sm mb-5'>
-              <a href="mailto:your.email@example.com" className='flex items-center gap-2 hover:text-purple-400 transition duration-300'>
-                <FaEnvelope size={14} /> your.email@example.com
+              <a href="mailto:bhabasindhudas621@gmail.com" className='flex items-center gap-2 hover:text-purple-400 transition duration-300'>
+                <FaEnvelope size={14} /> bhabasindhudas621@gmail.com
               </a>
-              <span className='flex items-center gap-2'>
+              <a href="https://maps.google.com/?q=India" target="_blank" rel="noopener noreferrer" className='flex items-center gap-2 hover:text-purple-400 transition duration-300'>
                 <FaMapMarkerAlt size={14} /> India
-              </span>
+              </a>
             </div>
 
             <div className='flex flex-wrap justify-center md:justify-start gap-3'>

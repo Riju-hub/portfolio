@@ -34,7 +34,7 @@ function Contact() {
 
   const contactDetails = [
     { icon: FaMapMarkerAlt, label: 'Location', value: 'Kolkata, India', href: 'https://maps.google.com' },
-    { icon: FaEnvelope, label: 'Email', value: 'bhabasindhudas@gmail.com', href: 'mailto:bhabasindhudas@gmail.com' },
+    { icon: FaEnvelope, label: 'Email', value: 'bhabasindhudas621@gmail.com', href: 'mailto:bhabasindhudas621@gmail.com' },
     { icon: FaPhone, label: 'Phone', value: '+91 9641486257', href: 'tel:+919641486257' },
   ];
 
@@ -96,7 +96,7 @@ function Contact() {
                     id="name"
                     name="name"
                     type="text" 
-                    placeholder="Dj Alok"
+                    placeholder="Bhabasindhu Das"
                     className={inputClasses}
                     required
                   />
@@ -107,7 +107,7 @@ function Contact() {
                     id="email"
                     name="email"
                     type="email" 
-                    placeholder="djalok@example.com"
+                    placeholder="bhabasindhudas@gmail.com"
                     className={inputClasses}
                     required
                   />
@@ -209,7 +209,7 @@ function Contact() {
             {/* Social Accounts */}
             <div className="pt-4">
               <h3 className='text-sm font-semibold text-gray-400 mb-4 uppercase tracking-wider'>Follow Me</h3>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-5">
                 {socialLinks.map(({ icon: Icon, url, label, hover }) => (
                   <a
                     key={label}

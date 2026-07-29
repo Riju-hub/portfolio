@@ -28,6 +28,7 @@ function Hero() {
     { icon: FaFacebook, url: 'https://www.facebook.com/profile.php?id=61577756120368', label: 'Facebook', hover: 'hover:bg-blue-700' },
     { icon: FaInstagram, url: 'https://www.instagram.com/bhabasindhudas621/', label: 'Instagram', hover: 'hover:bg-pink-600' },
   ];
+  const resumeUrl = "https://docs.google.com/document/d/17rG0iIqWcX4ryQEUdUwo5q495kW8Dq5Y/edit?usp=sharing&ouid=106738437067915541921&rtpof=true&sd=true";
 
   return ( 
     <section
@@ -89,15 +90,21 @@ function Hero() {
               View Work
             </button>
             <button
+              onClick={() => window.open(resumeUrl, '_blank')}
+              className="px-7 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-purple-600/30 hover:-translate-y-0.5 transition duration-300"
+            >
+              Download Resume
+            </button>
+            <button
               onClick={() => scrollToSection('contact')}
-              className="px-7 py-3 border border-purple-500/60 text-purple-300 rounded-xl font-semibold hover:bg-purple-500/10 hover:-translate-y-0.5 transition duration-300"
+              className="px-7 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-purple-600/30 hover:-translate-y-0.5 transition duration-300"
             >
               Contact Me
             </button>
           </div>
 
           {/* Social Icons */}
-          <div className="flex flex-wrap justify-center md:justify-start gap-3">
+          <div className="flex flex-wrap justify-center md:justify-start gap-5">
             {socialLinks.map(({ icon: Icon, url, label, hover }) => (
               <a
                 key={label}

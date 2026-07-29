@@ -150,14 +150,36 @@ export const projects = [
 
 // export const workData = [
 //   {
-//     role: "AI Intern",
-//     company: "Samsung Inovation Campus",
-//     duration: "Sep 2025 - Nov 2025",
+//     role: "Web Development Intern",
+//     company: "Zaalima Development Pvt. Ltd.",
+//     duration: "July 2025 - Oct 2025",
 //     description:
-//       "Completed hands-on training in AI and Machine Learning, working with Python, Pandas, NumPy, and scikit-learn. Built machine learning models, performed data preprocessing, and analyzed datasets through practical projects.",
+//       "Worked on developing and maintaining web applications using React, Node.js, and MongoDB. Collaborated with the team to implement new features and optimize existing code.",
 //     color: "purple"
 //   }
 // ];
+
+export const workData = [
+  {
+    role: "Web Development Intern",
+    company: "Zaalima Development Pvt. Ltd.",
+    workType: "Remote",
+    duration: "July 2025 - Oct 2025",
+    description:
+      "Engineered full-stack solutions and contributed to core client applications using React, Node.js, Express, and MongoDB. Key contributions included:",
+    highlights: [
+      "Built and deployed \"NovaCommerce\" — a SaaS \"Multi-Tenant E-Commerce Platform** engineered with **MERN Stack\" (React, Redux Toolkit, Node.js, Express, MongoDB) for isolated vendor environments.",
+      "Engineered \"Role-Based Access Control (RBAC)\" securing 3 distinct user interfaces: \"Customer Storefront\", \"Vendor Management Dashboard\", and \"Super Admin Control Center\" using \"JWT\" and \"Bcrypt.js\".",
+      "Designed the \"Customer Portal\" featuring dynamic storefront browsing, global state management via \"Redux Toolkit\", secure checkout powered by \"Stripe API\", and automated transaction emails via \"Nodemailer\".",
+      "Developed the \"Vendor Dashboard\" for localized store configuration, \"Cloudinary-backed\" product media handling, and real-time inventory, pricing, and variant CRUD management.",
+      "Architected the \"Super Admin Panel\" with centralized analytics dashboards for tracking system-wide revenue, order volume metrics, and multi-tenant operational oversight.",
+      "Optimized production infrastructure with \"MongoDB query indexing\", \"Helmet.js\" security policies, and deployed frontend/backend environments on \"Vercel\" and \"Render\"."
+    ],
+    github: "https://github.com/Riju-hub/NovaCommerce",
+    liveDemo: "https://nova-commerce-three.vercel.app/",
+    color: "purple"
+  }
+];
 
 export const educationData = [
   {
