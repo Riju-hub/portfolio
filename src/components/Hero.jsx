@@ -93,7 +93,7 @@ function Hero() {
               onClick={() => window.open(resumeUrl, '_blank')}
               className="px-7 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-purple-600/30 hover:-translate-y-0.5 transition duration-300"
             >
-              Download Resume
+              Resume ↗
             </button>
             <button
               onClick={() => scrollToSection('contact')}
