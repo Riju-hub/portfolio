@@ -7,6 +7,7 @@ import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Work from './components/Work'
 import Contact from './components/Contact'
+import ProjectDetails from './pages/ProjectDetails'
 import Footer from './components/Footer'
 import NotFound from './components/NotFound'
 import Education from './components/Education'
@@ -20,6 +21,7 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>} />
+        <Route path='/project/:id' element={<ProjectDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer/>
