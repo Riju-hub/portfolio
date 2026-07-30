@@ -148,17 +148,6 @@ export const projects = [
   }
 ];
 
-// export const workData = [
-//   {
-//     role: "Web Development Intern",
-//     company: "Zaalima Development Pvt. Ltd.",
-//     duration: "July 2025 - Oct 2025",
-//     description:
-//       "Worked on developing and maintaining web applications using React, Node.js, and MongoDB. Collaborated with the team to implement new features and optimize existing code.",
-//     color: "purple"
-//   }
-// ];
-
 export const workData = [
   {
     role: "Web Development Intern",
@@ -201,3 +190,108 @@ export const educationData = [
     grade: "CGPA: 9.16"
   }
 ];
+
+// export const projects = [
+//   {
+//     id: "staynova",
+//     title: "StayNova - Hotel Catalog Platform",
+//     description: "A full-stack hotel catalog platform featuring hotel listings, search, and responsive design",
+//     image: hotel_image,
+//     tech: ["Express.js", "Node.js", "MongoDB", "EJS"],
+//     demo: "https://delta-project-j8uf.onrender.com",
+//     code: "https://github.com/Riju-hub/StayNova",
+//     overview: "StayNova is a dynamic hotel catalog application that allows users to search, explore, and review hotel properties with seamless media rendering and backend data management.",
+//     keyFeatures: [
+//       "Dynamic hotel listing management with MongoDB & Express",
+//       "Interactive map and location rendering",
+//       "User review and rating workflow",
+//       "Full CRUD operations for property owners"
+//     ],
+//     architecture: "Built with the MVC pattern utilizing Express.js routing, EJS templating engine, and MongoDB Atlas for database management."
+//   },
+//   {
+//     id: "zerodha-clone",
+//     title: "Zerodha - Stock Trading Platform",
+//     description: "A stock trading platform for managing portfolios, tracking market data, and executing trades.",
+//     image: stock_trading,
+//     tech: ["React", "Node.js", "Express.js", "MongoDB"],
+//     demo: "https://zerodha-frontend-sable.vercel.app/",
+//     code: "https://github.com/Riju-hub/Zerodha",
+//     overview: "A trading dashboard designed to mimic real-time market tracking, portfolio management, buy/sell executions, and user analytics.",
+//     keyFeatures: [
+//       "Interactive holdings and portfolio dashboard",
+//       "Real-time order placement simulation (Market & Limit orders)",
+//       "Secure user authentication with JWT",
+//       "Visual chart analysis for stock positions"
+//     ],
+//     architecture: "Engineered on the MERN stack with RESTful API endpoints handling portfolio transactions and MongoDB tracking user balances."
+//   },
+//   {
+//     id: "meetify",
+//     title: "Meetify - Real Time Video Calling Platform",
+//     description: "A real-time video calling application with group meetings, screen sharing, and chat functionality.",
+//     image: video_call,
+//     tech: ["Socket.io", "React", "Node.js", "Express.js", "MongoDB"],
+//     demo: "https://meetify-frontend-48uw.onrender.com",
+//     code: "https://github.com/Riju-hub/Meetify",
+//     overview: "Meetify enables low-latency WebRTC video meetings complete with room management, real-time messaging, and screen sharing capabilities.",
+//     keyFeatures: [
+//       "Peer-to-peer audio/video streaming via WebRTC",
+//       "Real-time WebSocket signaling server built with Socket.io",
+//       "In-call text chat messaging and screen-sharing controls",
+//       "Instant room link generation and sharing"
+//     ],
+//     architecture: "Node.js backend serves as the WebRTC signaling gateway using Socket.io while peer audio/video streams pass directly client-to-client."
+//   },
+//   {
+//     id: "portfolio",
+//     title: "Personal Portfolio Website",
+//     description: "A personal portfolio to showcase projects, skills, and blogs with a clean and modern design.",
+//     image: portfolio,
+//     tech: ["React", "Tailwind CSS", "Framer Motion", "EmailJS"],
+//     demo: "https://portfolio-kohl-one-v7sfueoexw.vercel.app/",
+//     code: "https://github.com/Riju-hub/portfolio",
+//     overview: "Modern, high-performance web portfolio featuring responsive animations, project breakdowns, and direct contact integration.",
+//     keyFeatures: [
+//       "Smooth Framer Motion entrance animations and scroll triggers",
+//       "Fully responsive layout built with Tailwind CSS",
+//       "Direct email dispatch using EmailJS integration",
+//       "Dynamic project details routing"
+//     ],
+//     architecture: "React SPA deployed on Vercel utilizing Tailwind CSS for styling and Framer Motion for UI micro-interactions."
+//   },
+//   {
+//     id: "credify",
+//     title: "Credify - CreditWise Loan System",
+//     description: "A machine learning system that predicts loan approval eligibility based on applicant data.",
+//     image: credit,
+//     tech: ["Python", "Scikit-learn", "Pandas", "NumPy", "Supervised Learning"],
+//     demo: null,
+//     code: null,
+//     overview: "A supervised machine learning classification model trained on credit evaluation datasets to automate risk analysis and loan eligibility predictions.",
+//     keyFeatures: [
+//       "Feature engineering and missing data imputation pipelines",
+//       "Exploratory Data Analysis (EDA) evaluating credit score impact",
+//       "Supervised classification modeling (Logistic Regression / Random Forest)",
+//       "Model metric evaluation (Precision, Recall, ROC-AUC)"
+//     ],
+//     architecture: "Data processing and ML model training engineered in Python using Pandas, NumPy, and Scikit-learn."
+//   },
+//   {
+//     id: "smartcart",
+//     title: "SmartCart - E-Commerce Customer Segmentation System",
+//     description: "An machine learning system that segments customers based on purchasing behavior for targeted marketing.",
+//     image: customer,
+//     tech: ["Python", "Scikit-learn", "Pandas", "NumPy", "Unsupervised Learning"],
+//     demo: null,
+//     code: null,
+//     overview: "An unsupervised ML clustering solution built to analyze customer purchase history and group users into actionable marketing segments.",
+//     keyFeatures: [
+//       "K-Means clustering algorithm implementation",
+//       "Recency, Frequency, Monetary (RFM) feature extraction",
+//       "Elbow Method & Silhouette Score model validation",
+//       "Data visualization for customer cohort behavior"
+//     ],
+//     architecture: "Python analytics pipeline leveraging Scikit-learn for clustering and Seaborn/Matplotlib for cohort visualizations."
+//   }
+// ];
