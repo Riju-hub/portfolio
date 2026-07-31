@@ -153,7 +153,7 @@ export const workData = [
     role: "Web Development Intern",
     company: "Zaalima Development Pvt. Ltd.",
     workType: "Remote",
-    duration: "July 2025 - Oct 2025",
+    duration: "July 2026 - Oct 2026",
     description:
       "Engineered full-stack solutions and contributed to core client applications using React, Node.js, Express, and MongoDB. Key contributions included:",
     highlights: [
