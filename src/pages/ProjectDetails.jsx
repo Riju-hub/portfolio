@@ -267,7 +267,7 @@ function ProjectDetails() {
                   rel="noopener noreferrer"
                   className="px-6 py-3.5 rounded-2xl bg-neutral-900/90 border border-neutral-800 hover:border-purple-500/50 font-semibold text-white flex items-center gap-2.5 transition-all backdrop-blur-md hover:scale-[1.02] active:scale-[0.98] shadow-xl text-sm"
                 >
-                  <FaGithub size={16} /> GitHub Repo
+                  <FaGithub size={16} /> GitHub
                 </a>
               )}
               {project.demo && (

@@ -166,7 +166,7 @@ const ProjectCard = ({ id, title, description, image, tech = [], demo, code }) =
               rel="noopener noreferrer" 
               className='flex-1 flex items-center justify-center gap-2 text-center px-3.5 py-2.5 bg-neutral-950 border border-neutral-800 hover:border-purple-500/40 text-neutral-200 hover:text-purple-300 rounded-xl font-semibold transition duration-300 text-xs sm:text-sm'
             >
-              <FaGithub size={14} /> Code
+              <FaGithub size={14} /> GitHub
             </a>
           ) : (
             <span className='flex-1 flex items-center justify-center gap-2 text-center px-3.5 py-2.5 bg-neutral-950/60 border border-neutral-800/80 rounded-xl font-medium text-neutral-600 text-xs sm:text-sm cursor-not-allowed'>
