@@ -14,87 +14,119 @@ export const assets = {
 
 export const aboutInfo = [
   {
+    id: 'problem-solver',
     icon: FaLightbulb,
     title: 'Problem Solver',
-    description: 'I enjoy solving real-world problems by building practical software and machine learning solutions.',
-    color: 'text-yellow'
+    subtitle: 'Algorithmic & Logical Thinking',
+    description: 'Deconstructing complex engineering challenges into clean, scalable software architectures and functional machine learning solutions.',
+    color: 'text-amber-400',
+    borderColor: 'hover:border-amber-500/40',
+    bgGlow: 'group-hover:bg-amber-500/10',
+    badge: 'Core Skill'
   },
   {
+    id: 'full-stack',
     icon: FaCode,
     title: 'Full-Stack Developer',
-    description: 'Building responsive web applications with the MERN stack and modern development tools.',
-    color: 'text-pink'
+    subtitle: 'MERN & Modern Web Ecosystem',
+    description: 'Crafting performant web platforms with React, Node.js, Express, and MongoDB with clean component isolation.',
+    color: 'text-pink-400',
+    borderColor: 'hover:border-pink-500/40',
+    bgGlow: 'group-hover:bg-pink-500/10',
+    badge: 'Production Ready'
   },
   {
+    id: 'ai-ml',
     icon: FaBrain,
-    title: 'AI & ML Enthusiast',
-    description: 'Exploring machine learning, deep learning, and data-driven technologies to create intelligent solutions.',
-    color: 'text-purple'
+    title: 'AI & ML Engineer',
+    subtitle: 'Deep Learning & Intelligent Systems',
+    description: 'Exploring neural networks, optimization techniques, and intelligent data processing to build smart applications.',
+    color: 'text-blue-400',
+    borderColor: 'hover:border-purple-500/40',
+    bgGlow: 'group-hover:bg-purple-500/10',
+    badge: 'Specialization'
   },
   {
+    id: 'data-science',
     icon: FaChartLine,
-    title: 'Data Science',
-    description: 'Analyzing data, uncovering insights, and building data-driven solutions using Python and modern analytics tools.',
-    color: 'text-green'
+    title: 'Data Analytics',
+    subtitle: 'Insights & Mathematical Modeling',
+    description: 'Extracting actionable insights, performing exploratory data analysis, and building predictive models using Python tools.',
+    color: 'text-emerald-400',
+    borderColor: 'hover:border-emerald-500/40',
+    bgGlow: 'group-hover:bg-emerald-500/10',
+    badge: 'Analytics'
   }
 ];
 
 export const skills = [
   {
+    id: 'frontend',
+    category: 'web',
     title: 'Frontend Development',
     icon: FaReact,
-    description: 'Building responsive and interactive user interfaces with modern frameworks.',
-    tags: ['React', 'HTML', 'CSS', 'JavaScript', 'Tailwind CSS', 'Bootstrap','Material UI'],
-    color: 'text-cyan',
+    description: 'Building responsive, high-performance user interfaces with modern React paradigms and component systems.',
+    tags: ['React', 'JavaScript', 'Tailwind CSS', 'HTML5', 'CSS3', 'Bootstrap', 'Material UI'],
+    color: 'text-cyan-400',
+    borderColor: 'hover:border-cyan-500/40',
+    bgGlow: 'group-hover:bg-cyan-500/10'
   },
   {
-    title: 'Backend Development',
+    id: 'backend',
+    category: 'web',
+    title: 'Backend Engineering',
     icon: FaServer,
-    description: 'Creating robust server-side applications and RESTful APIs.',
-    tags: ['Node.js', 'Express', 'REST API','JWT Authentication','Socket.io','MVC Architecture'],
-    color: 'text-green',
+    description: 'Architecting scalable server-side systems, RESTful APIs, and secure authentication flows.',
+    tags: ['Node.js', 'Express', 'REST API', 'JWT Auth', 'Socket.io', 'MVC Architecture'],
+    color: 'text-emerald-400',
+    borderColor: 'hover:border-emerald-500/40',
+    bgGlow: 'group-hover:bg-emerald-500/10'
   },
   {
-  title: 'Data Science',
-  icon: FaChartBar,
-  description: 'Analyzing data, visualizing insights, and building data-driven solutions.',
-  tags: ['Python', 'Scikit-learn', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Jupyter Notebook'],
-  color: 'text-amber',
-},
-{
-  title: 'AI & Machine Learning',
-  icon: FaBrain,
-  description: 'Building intelligent systems using machine learning and deep learning techniques.',
-  tags: [
-    'Machine Learning',
-    'Deep Learning',
-    'PyTorch',
-    'Scikit-learn'
-  ],
-  color: 'text-purple',
-},
+    id: 'ai-ml',
+    category: 'ai',
+    title: 'AI & Machine Learning',
+    icon: FaBrain,
+    description: 'Engineering intelligent models and neural network architectures for predictive tasks.',
+    tags: ['Machine Learning', 'Deep Learning', 'PyTorch', 'Scikit-Learn', 'Neural Networks'],
+    color: 'text-purple-400',
+    borderColor: 'hover:border-purple-500/40',
+    bgGlow: 'group-hover:bg-purple-500/10'
+  },
   {
-    title: 'Database Management',
+    id: 'data-science',
+    category: 'ai',
+    title: 'Data Science & Analytics',
+    icon: FaChartBar,
+    description: 'Extracting data insights, exploratory analysis, and statistical modeling with Python tools.',
+    tags: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Jupyter', 'Scikit-Learn'],
+    color: 'text-amber-400',
+    borderColor: 'hover:border-amber-500/40',
+    bgGlow: 'group-hover:bg-amber-500/10'
+  },
+  {
+    id: 'database',
+    category: 'devops',
+    title: 'Database Systems',
     icon: FaDatabase,
-    description: 'Designing and optimizing databases for performance and scalability.',
-    tags: ['MongoDB', 'MySQL', 'CRUD Operations','Mongoose'],
-    color: 'text-yellow',
+    description: 'Designing schema models and optimizing database queries for performance and data integrity.',
+    tags: ['MongoDB', 'MySQL', 'Mongoose ORM', 'CRUD Operations', 'Query Indexing'],
+    color: 'text-pink-400',
+    borderColor: 'hover:border-pink-500/40',
+    bgGlow: 'group-hover:bg-pink-500/10'
   },
   {
-  title: 'Deployment & Hosting',
-  icon: FaCloud,
-  description: 'Deploying and hosting full-stack applications on modern cloud platforms.',
-  tags: [
-    'Render',
-    'Git',
-    'GitHub',
-    'Web Hosting',
-    'Environment Variables'
-  ],
-  color: 'text-pink',
-},
+    id: 'deployment',
+    category: 'devops',
+    title: 'Cloud & Infrastructure',
+    icon: FaCloud,
+    description: 'Deploying full-stack applications, managing Git repositories, and configuring cloud environments.',
+    tags: ['Render', 'Vercel', 'Git', 'GitHub', 'CI/CD Pipelines', 'Environment Config'],
+    color: 'text-indigo-400',
+    borderColor: 'hover:border-indigo-500/40',
+    bgGlow: 'group-hover:bg-indigo-500/10'
+  }
 ];
-
 export const projects = [
   {
     title: "StayNova - Hotel Catalog Platform",
@@ -148,27 +180,52 @@ export const projects = [
   }
 ];
 
+// src/assets/assets.js
+
 export const workData = [
   {
-    role: "Web Development Intern",
+    companyId: "zaalima",
     company: "Zaalima Development Pvt. Ltd.",
+    role: "Web Development Intern",
     workType: "Remote",
     duration: "July 2026 - Oct 2026",
     description:
-      "Engineered full-stack solutions and contributed to core client applications using React, Node.js, Express, and MongoDB. Key contributions included:",
-    highlights: [
-      "Built and deployed \"NovaCommerce\" — a SaaS \"Multi-Tenant E-Commerce Platform** engineered with **MERN Stack\" (React, Redux Toolkit, Node.js, Express, MongoDB) for isolated vendor environments.",
-      "Engineered \"Role-Based Access Control (RBAC)\" securing 3 distinct user interfaces: \"Customer Storefront\", \"Vendor Management Dashboard\", and \"Super Admin Control Center\" using \"JWT\" and \"Bcrypt.js\".",
-      "Designed the \"Customer Portal\" featuring dynamic storefront browsing, global state management via \"Redux Toolkit\", secure checkout powered by \"Stripe API\", and automated transaction emails via \"Nodemailer\".",
-      "Developed the \"Vendor Dashboard\" for localized store configuration, \"Cloudinary-backed\" product media handling, and real-time inventory, pricing, and variant CRUD management.",
-      "Architected the \"Super Admin Panel\" with centralized analytics dashboards for tracking system-wide revenue, order volume metrics, and multi-tenant operational oversight.",
-      "Optimized production infrastructure with \"MongoDB query indexing\", \"Helmet.js\" security policies, and deployed frontend/backend environments on \"Vercel\" and \"Render\"."
-    ],
-    github: "https://github.com/Riju-hub/NovaCommerce",
-    liveDemo: "https://nova-commerce-three.vercel.app/",
-    color: "purple"
+      "Engineered full-stack solutions and contributed to core client applications using React, Node.js, Express, and MongoDB.",
+    projects: [
+      {
+        id: "novacommerce",
+        title: "NovaCommerce",
+        tagline: "SaaS Multi-Tenant E-Commerce Platform",
+        highlights: [
+          "Built and deployed **NovaCommerce** — a SaaS **Multi-Tenant E-Commerce Platform** engineered with **MERN Stack** (React, Redux Toolkit, Node.js, Express, MongoDB) for isolated vendor environments.",
+          "Engineered **Role-Based Access Control (RBAC)** securing 3 distinct user interfaces: **Customer Storefront**, **Vendor Management Dashboard**, and **Super Admin Control Center** using **JWT** and **Bcrypt.js**.",
+          "Designed the **Customer Portal** featuring dynamic storefront browsing, global state management via **Redux Toolkit**, secure checkout powered by **Stripe API**, and automated transaction emails via **Nodemailer**.",
+          "Developed the **Vendor Dashboard** for localized store configuration, **Cloudinary-backed** product media handling, and real-time inventory, pricing, and variant CRUD management.",
+          "Architected the **Super Admin Panel** with centralized analytics dashboards for tracking system-wide revenue, order volume metrics, and multi-tenant operational oversight.",
+          "Optimized production infrastructure with **MongoDB query indexing**, **Helmet.js** security policies, and deployed frontend/backend environments on **Vercel** and **Render**."
+        ],
+        techStack: ["MERN Stack", "React", "Redux Toolkit", "Node.js", "Express", "MongoDB", "JWT", "Bcrypt.js", "Stripe API", "Nodemailer", "Cloudinary", "Helmet.js", "Vercel", "Render"],
+        github: "https://github.com/Riju-hub/NovaCommerce",
+        liveDemo: "https://nova-commerce-three.vercel.app/"
+      }
+      // Future projects at Zaalima can be added here cleanly!
+    ]
   }
+  // Future companies and roles can be added here!
 ];
+
+// Flat export helper for single-item lookups (e.g. for ProjectDetails page)
+export const allProjects = workData.flatMap((exp) =>
+  exp.projects.map((proj) => ({
+    ...proj,
+    company: exp.company,
+    role: exp.role,
+    workType: exp.workType,
+    duration: exp.duration
+  }))
+);
+
+
 
 export const educationData = [
   {
