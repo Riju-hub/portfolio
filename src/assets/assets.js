@@ -157,7 +157,7 @@ export const projects = [
     description: "A personal portfolio to showcase projects, skills, and blogs with a clean and modern design.",
     image: portfolio,
     tech: ["React", "Tailwind CSS", "Framer Motion","EmailJS"],
-    demo: "https://portfolio-kohl-one-v7sfueoexw.vercel.app/",
+    demo: "https://bhabasindhudas.vercel.app/",
     code: "https://github.com/Riju-hub/portfolio",
   },
   
@@ -206,7 +206,7 @@ export const workData = [
         ],
         techStack: ["MERN Stack", "React", "Redux Toolkit", "Node.js", "Express", "MongoDB", "JWT", "Bcrypt.js", "Stripe API", "Nodemailer", "Cloudinary", "Helmet.js", "Vercel", "Render"],
         github: "https://github.com/Riju-hub/NovaCommerce",
-        liveDemo: "https://nova-commerce-three.vercel.app/"
+        liveDemo: "https://nova-commerce-th.vercel.app/"
       }
       // Future projects at Zaalima can be added here cleanly!
     ]
@@ -309,7 +309,7 @@ export const ProjectDetails = [
     description: "A personal portfolio to showcase projects, skills, and blogs with a clean and modern design.",
     image: portfolio,
     tech: ["React", "Tailwind CSS", "Framer Motion", "EmailJS"],
-    demo: "https://portfolio-kohl-one-v7sfueoexw.vercel.app/",
+    demo: "https://bhabasindhudas.vercel.app/",
     code: "https://github.com/Riju-hub/portfolio",
     overview: "Modern, high-performance web portfolio featuring responsive animations, project breakdowns, and direct contact integration.",
     keyFeatures: [

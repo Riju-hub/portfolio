@@ -38,7 +38,7 @@ function Hero() {
     { icon: FaInstagram, url: 'https://www.instagram.com/bhabasindhudas621/', label: 'Instagram', hover: 'hover:border-pink-500 hover:text-pink-400' },
   ];
 
-  const resumeUrl = "https://drive.google.com/file/d/14iFp4aClSt7EF9QP4XHkqMmlt7ARlGVn/view?usp=sharing";
+  const resumeUrl = "https://docs.google.com/document/d/1rsi35OZRNh_WH07O2zVm7eYv5IgGa0EgCw9-LbESd3Q/edit?usp=sharing";
 
   return ( 
     <section
