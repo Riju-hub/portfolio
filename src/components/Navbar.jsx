@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,10 +14,10 @@ import {
   FaGithub, 
   FaLinkedin, 
   FaTwitter,
-  FaFileDownload,
   FaExternalLinkAlt
 } from 'react-icons/fa';
 import { FaXmark } from 'react-icons/fa6';
+import { HiSparkles } from 'react-icons/hi2';
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Home', icon: FaHome },
@@ -84,148 +85,174 @@ function Navbar() {
   };
 
   return ( 
-    <nav className={`fixed top-0 left-0 w-full z-50 backdrop-blur-md transition-all duration-300 text-white ${
-      scrolled ? 'bg-neutral-900/95 py-3 shadow-xl border-b border-neutral-800' : 'bg-neutral-900/70 py-5 border-b border-transparent'
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 font-sans ${
+      scrolled 
+        ? 'bg-[#08080a]/80 py-3 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]' 
+        : 'bg-transparent py-5 border-b border-transparent'
     }`}>
-      <div className="container mx-auto px-6 flex justify-between items-center">
+      <div className="container mx-auto px-4 sm:px-6 max-w-7xl flex justify-between items-center">
         
-        {/* Brand Logo */}
-        <button onClick={() => scrollToSection('home')} className='flex items-center gap-1.5 text-xl sm:text-2xl font-black tracking-wider text-white'>
-          BHABASINDHU <span className='text-purple-500'>DAS</span>
-          <div className='w-2 h-2 bg-purple-500 rounded-full mt-1 animate-pulse' />
+        {/* Brand Logo with Pulsing Beacon */}
+        <button 
+          onClick={() => scrollToSection('home')} 
+          className="group flex items-center gap-2 text-lg sm:text-xl lg:text-2xl font-black tracking-wider text-white cursor-pointer select-none"
+        >
+          <span>BHABASINDHU <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-300">DAS</span></span>
+          <div className="relative flex items-center justify-center w-2.5 h-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-gradient-to-r from-purple-500 to-pink-500" />
+          </div>
         </button>
 
-        {/* Desktop Navigation Links */}
-        <div className='hidden md:flex items-center gap-1 lg:gap-2 font-medium'>
-          {NAV_ITEMS.map(({ id, label }) => (
-            <button
-              key={id}
-              onClick={() => scrollToSection(id)}
-              className={`relative px-3.5 py-2 rounded-full capitalize transition-all duration-300 text-sm lg:text-base ${
-                activeSection === id ? 'text-white' : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              {activeSection === id && (
-                <motion.span
-                  layoutId="active-nav-pill"
-                  className='absolute inset-0 bg-gradient-to-r from-purple-600/80 to-pink-500/80 rounded-full -z-10'
-                  transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                />
-              )}
-              <span className='relative z-10'>{label}</span>
-            </button>
-          ))}
+        {/* Desktop & Tablet Glassmorphic Navigation Bar */}
+        <div className="hidden md:flex items-center gap-1 xl:gap-1.5 p-1.5 rounded-full bg-neutral-900/60 border border-white/10 backdrop-blur-xl shadow-xl">
+          {NAV_ITEMS.map(({ id, label }) => {
+            const isActive = activeSection === id;
 
-          {/* Resume PDF External Link Button */}
-          <a
+            return (
+              <button
+                key={id}
+                onClick={() => scrollToSection(id)}
+                className={`relative px-3.5 py-1.5 lg:px-4 lg:py-2 rounded-full capitalize font-medium text-xs lg:text-sm transition-all duration-300 cursor-pointer ${
+                  isActive ? 'text-white font-semibold' : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="activeNavIndicator"
+                    className="absolute inset-0 bg-gradient-to-r from-purple-600/90 to-pink-600/90 rounded-full shadow-lg shadow-purple-600/30 border border-purple-400/30"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{label}</span>
+              </button>
+            );
+          })}
+
+          {/* Action Resume CTA */}
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             href={RESUME_PDF_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group ml-2 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs lg:text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 border border-purple-400/30 shadow-md shadow-purple-600/20 hover:scale-105 transition-all duration-300"
+            className="group relative ml-2 inline-flex items-center gap-2 px-4 py-1.5 lg:px-5 lg:py-2 rounded-full text-xs lg:text-sm font-semibold text-white overflow-hidden shadow-lg cursor-pointer"
           >
-            {/* <FaFileDownload size={13} className="text-purple-200" /> */}
-            <span>Resume</span>
-            <FaExternalLinkAlt className="text-[10px] text-purple-200 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-          </a>
+            <span className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 transition-all duration-300" />
+            
+            <span className="relative z-10 flex items-center gap-1.5">
+              <span>Resume</span>
+              <FaExternalLinkAlt className="text-[10px] text-purple-200 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+            </span>
+
+            {/* Shine Sweep Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+          </motion.a>
         </div>
 
-        {/* Mobile Toggle Button */}
+        {/* Mobile Hamburger Drawer Trigger */}
         <button
           onClick={() => setShowMenu(true)}
-          className='md:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-neutral-800/60 border border-neutral-700 text-white hover:border-purple-500/50 transition-colors'
-          aria-label="Open menu"
+          className="md:hidden flex items-center justify-center w-10 h-10 rounded-2xl bg-neutral-900/80 border border-white/10 text-white hover:border-purple-500/40 transition-all duration-300 backdrop-blur-md cursor-pointer"
+          aria-label="Open navigation menu"
         >
-          <FaBars className='text-lg' />
+          <FaBars className="text-base text-purple-300" />
         </button>
       </div>
 
-      {/* Mobile Menu Backdrop + Slide-in Drawer */}
+      {/* Mobile Glassmorphic Slide-in Drawer */}
       <AnimatePresence>
         {showMenu && (
           <>
-            {/* Backdrop */}
+            {/* Dark Backdrop Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               onClick={() => setShowMenu(false)}
-              className='md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40'
+              className="md:hidden fixed inset-0 bg-black/70 backdrop-blur-md z-40"
             />
 
-            {/* Drawer */}
+            {/* Slide Drawer */}
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 320, damping: 34 }}
-              className='md:hidden fixed top-0 right-0 h-screen w-[78%] max-w-xs bg-neutral-950 border-l border-neutral-800 z-50 flex flex-col shadow-2xl'
+              className="md:hidden fixed top-0 right-0 h-screen w-[82%] max-w-xs bg-[#08080a] border-l border-white/10 z-50 flex flex-col shadow-2xl overflow-hidden"
             >
-              {/* Drawer header */}
-              <div className='flex items-center justify-between px-6 py-5 border-b border-neutral-800'>
-                <span className='text-lg font-black tracking-wide text-white'>
-                  Menu
+              {/* Drawer Top Header */}
+              <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 bg-neutral-900/40 backdrop-blur-xl">
+                <span className="text-base font-black tracking-wider text-white flex items-center gap-2">
+                  <HiSparkles className="text-purple-400" /> Navigation
                 </span>
                 <button
                   onClick={() => setShowMenu(false)}
-                  className='w-9 h-9 flex items-center justify-center rounded-lg bg-neutral-800/60 border border-neutral-700 text-gray-300 hover:text-purple-400 hover:border-purple-500/50 transition-colors'
-                  aria-label="Close menu"
+                  className="w-9 h-9 flex items-center justify-center rounded-xl bg-neutral-900 border border-white/10 text-neutral-300 hover:text-purple-400 hover:border-purple-500/40 transition-colors cursor-pointer"
+                  aria-label="Close navigation menu"
                 >
-                  <FaXmark className='text-lg' />
+                  <FaXmark className="text-base" />
                 </button>
               </div>
 
-              {/* Nav links */}
-              <div className='flex-1 overflow-y-auto py-4 px-3'>
-                {NAV_ITEMS.map(({ id, label, icon: Icon }, index) => (
-                  <motion.button
-                    key={id}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    onClick={() => scrollToSection(id)}
-                    className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-xl mb-1 text-left transition-all duration-200 ${
-                      activeSection === id
-                        ? 'bg-gradient-to-r from-purple-600/20 to-pink-500/20 border border-purple-500/30 text-white'
-                        : 'text-gray-400 hover:bg-neutral-900 hover:text-white border border-transparent'
-                    }`}
-                  >
-                    <span className={`w-9 h-9 flex items-center justify-center rounded-lg flex-shrink-0 ${
-                      activeSection === id ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-neutral-800 text-gray-400'
-                    }`}>
-                      <Icon size={15} />
-                    </span>
-                    <span className='font-medium'>{label}</span>
-                    {activeSection === id && (
-                      <span className='ml-auto w-1.5 h-1.5 rounded-full bg-pink-400'></span>
-                    )}
-                  </motion.button>
-                ))}
+              {/* Navigation Links Area */}
+              <div className="flex-1 overflow-y-auto py-5 px-4 space-y-1">
+                {NAV_ITEMS.map(({ id, label, icon: Icon }, index) => {
+                  const isActive = activeSection === id;
 
-                {/* Direct Mobile Download Link */}
+                  return (
+                    <motion.button
+                      key={id}
+                      initial={{ opacity: 0, x: 25 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.04 }}
+                      onClick={() => scrollToSection(id)}
+                      className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-left transition-all duration-300 cursor-pointer ${
+                        isActive
+                          ? 'bg-gradient-to-r from-purple-600/20 via-pink-600/20 to-indigo-600/20 border border-purple-500/40 text-white shadow-lg shadow-purple-600/10'
+                          : 'text-neutral-400 hover:bg-neutral-900/60 hover:text-white border border-transparent'
+                      }`}
+                    >
+                      <span className={`w-9 h-9 flex items-center justify-center rounded-xl transition-all duration-300 ${
+                        isActive 
+                          ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md' 
+                          : 'bg-neutral-900 border border-neutral-800 text-neutral-400'
+                      }`}>
+                        <Icon size={15} />
+                      </span>
+                      <span className="font-medium text-sm">{label}</span>
+
+                      {isActive && (
+                        <span className="ml-auto w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 shadow-sm" />
+                      )}
+                    </motion.button>
+                  );
+                })}
+
+                {/* Mobile Direct Resume Link */}
                 <a
                   href={RESUME_PDF_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group mt-4 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold text-sm shadow-lg shadow-purple-600/20"
+                  className="group mt-6 w-full flex items-center justify-center gap-2 px-4 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 text-white font-semibold text-sm shadow-xl shadow-purple-600/20"
                 >
-                  {/* <FaFileDownload size={15} /> */}
                   <span>Resume</span>
-                  <FaExternalLinkAlt size={11} className="opacity-80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <FaExternalLinkAlt size={12} className="opacity-80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
               </div>
 
-              {/* Footer: Social links */}
-              <div className='px-6 py-5 border-t border-neutral-800'>
-                <p className='text-xs text-gray-500 mb-3 uppercase tracking-wider'>Connect</p>
-                <div className='flex gap-3'>
-                  <a href="https://github.com/Riju-hub/" target="_blank" rel="noopener noreferrer" className='w-10 h-10 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-500/50 transition-colors'>
+              {/* Drawer Bottom Social Footer */}
+              <div className="px-6 py-5 border-t border-white/10 bg-neutral-900/40 backdrop-blur-xl">
+                <p className="text-[11px] font-mono text-neutral-500 mb-3 uppercase tracking-wider">Connect Online</p>
+                <div className="flex gap-2.5">
+                  <a href="https://github.com/Riju-hub/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-purple-400 hover:border-purple-500/40 transition-colors">
                     <FaGithub size={16}/>
                   </a>
-                  <a href="https://www.linkedin.com/in/bhabasindhu-das-web" target="_blank" rel="noopener noreferrer" className='w-10 h-10 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-gray-400 hover:text-white hover:border-blue-500/50 transition-colors'>
+                  <a href="https://www.linkedin.com/in/bhabasindhu-das-web" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-blue-400 hover:border-blue-500/40 transition-colors">
                     <FaLinkedin size={16}/>
                   </a>
-                  <a href="https://x.com/BhabasindhuBhab" target="_blank" rel="noopener noreferrer" className='w-10 h-10 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-gray-400 hover:text-white hover:border-neutral-500 transition-colors'>
+                  <a href="https://x.com/BhabasindhuBhab" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-sky-400 hover:border-sky-500/40 transition-colors">
                     <FaTwitter size={16}/>
                   </a>
                 </div>
