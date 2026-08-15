@@ -192,9 +192,7 @@ function Hero() {
             ))}
           </div>
         </motion.div>
-
-        {/* Right Avatar & Premium Tech Badges */}
-        {/* <motion.div
+<motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
@@ -202,35 +200,30 @@ function Hero() {
         >
           <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-[380px] lg:h-[380px]">
             
+            {/* Ambient Multi-Layer Glow Halo */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-600 via-pink-500 to-indigo-500 opacity-40 blur-3xl animate-pulse" />
             
+            {/* 1. TOP-RIGHT: AI & Machine Learning Badge */}
+            <motion.div 
+              animate={{ y: [8, -8, 8] }}
+              transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-3 -right-4 sm:-top-5 sm:-right-6 z-20 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-neutral-900/90 border border-pink-500/20 backdrop-blur-xl shadow-2xl flex items-center gap-2.5 text-xs sm:text-sm text-pink-300 font-medium"
+            >
+              <HiSparkles className="text-pink-400 text-base sm:text-lg animate-pulse" />
+              <span>AI &amp; Machine Learning</span>
+            </motion.div>
+
+            {/* 2. BOTTOM-LEFT: Full Stack Developer Badge */}
             <motion.div 
               animate={{ y: [-8, 8, -8] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-3 -left-3 z-20 px-4 py-2.5 rounded-2xl bg-neutral-900/80 border border-white/10 backdrop-blur-xl shadow-2xl flex items-center gap-2.5 text-xs text-purple-300 font-medium"
+              className="absolute -bottom-3 -left-4 sm:-bottom-5 sm:-left-6 z-20 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-neutral-900/90 border border-purple-500/20 backdrop-blur-xl shadow-2xl flex items-center gap-2.5 text-xs sm:text-sm text-purple-300 font-medium"
             >
-              <FaReact className="text-cyan-400 text-base animate-spin" style={{ animationDuration: '10s' }} />
-              <span>Mern-Stack</span>
+              <HiCodeBracketSquare className="text-purple-400 text-base sm:text-lg" />
+              <span>Full Stack Developer</span>
             </motion.div>
 
-            <motion.div 
-              animate={{ y: [8, -8, 8] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-8 -right-4 z-20 px-4 py-2.5 rounded-2xl bg-neutral-900/80 border border-white/10 backdrop-blur-xl shadow-2xl flex items-center gap-2.5 text-xs text-pink-300 font-medium"
-            >
-              <FaBrain className="text-blue-400 text-base" />
-              <span>AI & Deep Learning</span>
-            </motion.div>
-
-            <motion.div 
-              animate={{ y: [-6, 6, -6] }}
-              transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-2 -left-4 z-20 px-4 py-2.5 rounded-2xl bg-neutral-900/80 border border-white/10 backdrop-blur-xl shadow-2xl flex items-center gap-2.5 text-xs text-indigo-300 font-medium"
-            >
-              <FaPython className="text-yellow-400 text-base" />
-              <span>Python & Data Science</span>
-            </motion.div>
-
+            {/* Profile Avatar Outer Gradient Ring */}
             <div className="relative w-full h-full rounded-full p-2.5 bg-gradient-to-tr from-purple-500/40 via-pink-500/20 to-indigo-500/40 backdrop-blur-md border border-white/10 shadow-2xl">
               <motion.img
                 animate={{ y: [0, -8, 0] }}
@@ -241,62 +234,7 @@ function Hero() {
               />
             </div>
           </div>
-        </motion.div> */}
-
-        {/* Right Avatar & Premium Tech Badges */}
-<motion.div
-  initial={{ opacity: 0, scale: 0.9 }}
-  animate={{ opacity: 1, scale: 1 }}
-  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-  className="w-full md:w-1/2 flex justify-center z-10"
->
-  <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-[380px] lg:h-[380px]">
-    
-    {/* Ambient Multi-Layer Glow Halo */}
-    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-600 via-pink-500 to-indigo-500 opacity-40 blur-3xl animate-pulse" />
-    
-    {/* 1. TOP-LEFT: MERN Stack Badge */}
-    <motion.div 
-      animate={{ y: [-8, 8, -8] }}
-      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute -top-4 -left-4 sm:-top-6 sm:-left-6 z-20 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-neutral-900/90 border border-white/10 backdrop-blur-xl shadow-2xl flex items-center gap-2.5 text-xs text-purple-300 font-medium"
-    >
-      <FaReact className="text-cyan-400 text-base animate-spin" style={{ animationDuration: '10s' }} />
-      <span>MERN-Stack</span>
-    </motion.div>
-
-    {/* 2. TOP-RIGHT: AI & Deep Learning Badge */}
-    <motion.div 
-      animate={{ y: [8, -8, 8] }}
-      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute -top-2 -right-4 sm:-top-4 sm:-right-8 z-20 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-neutral-900/90 border border-white/10 backdrop-blur-xl shadow-2xl flex items-center gap-2.5 text-xs text-pink-300 font-medium"
-    >
-      <FaBrain className="text-blue-400 text-base" />
-      <span>AI & Deep Learning</span>
-    </motion.div>
-
-    {/* 3. BOTTOM-RIGHT (LOW): Python & Data Science Badge */}
-    <motion.div 
-      animate={{ y: [-6, 6, -6] }}
-      transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute -bottom-4 right-0 sm:-bottom-6 sm:-right-4 z-20 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-neutral-900/90 border border-white/10 backdrop-blur-xl shadow-2xl flex items-center gap-2.5 text-xs text-indigo-300 font-medium"
-    >
-      <FaPython className="text-yellow-400 text-base" />
-      <span>Python & Data Science</span>
-    </motion.div>
-
-    {/* Profile Avatar Outer Gradient Ring */}
-    <div className="relative w-full h-full rounded-full p-2.5 bg-gradient-to-tr from-purple-500/40 via-pink-500/20 to-indigo-500/40 backdrop-blur-md border border-white/10 shadow-2xl">
-      <motion.img
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 5, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
-        className="rounded-full w-full h-full object-cover z-10 border-2 border-neutral-950 shadow-2xl" 
-        src={assets.profileImg} 
-        alt="Bhabasindhu Das Profile" 
-      />
-    </div>
-  </div>
-</motion.div>
+        </motion.div>
 
       </div>
 
