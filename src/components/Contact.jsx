@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -17,7 +16,8 @@ import {
   FaTag,
   FaCommentDots,
   FaCopy,
-  FaCheck
+  FaCheck,
+  FaInfoCircle
 } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
 
@@ -26,6 +26,7 @@ function Contact() {
   const [isSending, setIsSending] = useState(false);
   const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
   const [copied, setCopied] = useState(false);
+  const [emailInput, setEmailInput] = useState('');
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -60,6 +61,7 @@ function Contact() {
           text: 'Message & confirmation sent successfully!',
         });
         formRef.current.reset();
+        setEmailInput('');
       })
       .catch((error) => {
         setStatusMessage({
@@ -114,36 +116,35 @@ function Contact() {
   return ( 
     <section id="contact" className="relative py-24 md:py-32 bg-[#08080a] text-white overflow-hidden">
       
-      {/* Dynamic Mesh Background Ambient Glows */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-purple-600/20 rounded-full blur-[140px] animate-pulse" />
-        <div className="absolute top-1/3 -right-32 w-96 h-96 bg-pink-500/15 rounded-full blur-[140px] animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[30rem] h-[30rem] bg-indigo-600/15 rounded-full blur-[160px]" />
+      {/* GPU-Optimized Ambient Glows (Radial Gradients instead of heavy CSS blur filters) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none transform-gpu">
+        <div 
+          className="absolute -top-32 -left-32 w-96 h-96"
+          style={{ background: 'radial-gradient(circle, rgba(147, 51, 234, 0.18) 0%, rgba(0, 0, 0, 0) 70%)' }} 
+        />
+        <div 
+          className="absolute top-1/3 -right-32 w-96 h-96" 
+          style={{ background: 'radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, rgba(0, 0, 0, 0) 70%)' }} 
+        />
+        <div 
+          className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[32rem] h-[32rem]" 
+          style={{ background: 'radial-gradient(circle, rgba(79, 70, 229, 0.12) 0%, rgba(0, 0, 0, 0) 70%)' }} 
+        />
       </div>
 
       <div className="relative container mx-auto px-6 max-w-6xl z-10">
 
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          viewport={{ once: true, amount: 0.2 }}
           className="text-center mb-16 md:mb-24"
         >
-          {/* Premium Smooth Blinking Connect Badge */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-neutral-900/80 border border-purple-500/30 text-xs font-mono font-medium tracking-wider uppercase mb-5 shadow-[0_0_20px_rgba(168,85,247,0.15)] backdrop-blur-md">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-neutral-900/90 border border-purple-500/30 text-xs font-mono font-medium tracking-wider uppercase mb-5 shadow-lg">
             <div className="relative flex items-center justify-center w-2.5 h-2.5">
-              <motion.span 
-                animate={{ opacity: [0.2, 0.8, 0.2], scale: [0.8, 1.8, 0.8] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 rounded-full bg-purple-400/60 blur-[1px]"
-              />
-              <motion.span 
-                animate={{ opacity: [0.4, 1, 0.4] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 shadow-sm"
-              />
+              <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 shadow-sm" />
             </div>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-200">
               Let's Connect
@@ -160,15 +161,14 @@ function Contact() {
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           
-          {/* Glassmorphism Form Card */}
+          {/* Form Card */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
             viewport={{ once: true, amount: 0.2 }}
-            className="lg:col-span-7 bg-neutral-900/60 p-7 sm:p-10 rounded-3xl border border-white/10 backdrop-blur-xl shadow-2xl relative overflow-hidden group"
+            className="lg:col-span-7 bg-neutral-900/80 p-7 sm:p-10 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden group transform-gpu"
           >
-            {/* Soft Top Glow Accent */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
 
             <form ref={formRef} onSubmit={sendEmail} className="space-y-6 relative z-10">
@@ -186,7 +186,7 @@ function Contact() {
                       name="name"
                       type="text" 
                       placeholder="Alex Mercer"
-                      className="w-full bg-neutral-950/80 border border-neutral-800 rounded-2xl px-4 py-3.5 text-sm text-white placeholder-neutral-500 outline-none focus:border-purple-500/80 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300"
+                      className="w-full bg-neutral-950/90 border border-neutral-800 rounded-2xl px-4 py-3.5 text-sm text-white placeholder-neutral-500 outline-none focus:border-purple-500/80 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200"
                       required
                     />
                   </div>
@@ -202,11 +202,29 @@ function Contact() {
                       id="email"
                       name="email"
                       type="email" 
+                      value={emailInput}
+                      onChange={(e) => setEmailInput(e.target.value)}
                       placeholder="alex@example.com"
-                      className="w-full bg-neutral-950/80 border border-neutral-800 rounded-2xl px-4 py-3.5 text-sm text-white placeholder-neutral-500 outline-none focus:border-purple-500/80 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300"
+                      className="w-full bg-neutral-950/90 border border-neutral-800 rounded-2xl px-4 py-3.5 text-sm text-white placeholder-neutral-500 outline-none focus:border-purple-500/80 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200"
                       required
                     />
                   </div>
+
+                  {/* Live Email Accuracy Reminder */}
+                  <AnimatePresence>
+                    {emailInput.trim().length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -4, height: 0 }}
+                        animate={{ opacity: 1, y: 0, height: 'auto' }}
+                        exit={{ opacity: 0, y: -4, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex items-start gap-1.5 pt-1 text-[11px] font-mono text-amber-400/90 leading-tight"
+                      >
+                        <FaInfoCircle className="text-xs flex-shrink-0 mt-0.5 text-amber-400" />
+                        <span>Please verify this email. If unreachable, I won't be able to reply and your automated confirmation won't arrive.</span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
 
               </div>
@@ -221,7 +239,7 @@ function Contact() {
                   name="subject"
                   type="text" 
                   placeholder="Project Collaboration / Freelance"
-                  className="w-full bg-neutral-950/80 border border-neutral-800 rounded-2xl px-4 py-3.5 text-sm text-white placeholder-neutral-500 outline-none focus:border-purple-500/80 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300"
+                  className="w-full bg-neutral-950/90 border border-neutral-800 rounded-2xl px-4 py-3.5 text-sm text-white placeholder-neutral-500 outline-none focus:border-purple-500/80 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200"
                   required
                 />
               </div>
@@ -235,7 +253,7 @@ function Contact() {
                   id="message"
                   name="message"
                   placeholder="Tell me about your vision or idea..."
-                  className="w-full bg-neutral-950/80 border border-neutral-800 rounded-2xl px-4 py-3.5 text-sm text-white placeholder-neutral-500 outline-none focus:border-purple-500/80 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300 h-36 resize-none"
+                  className="w-full bg-neutral-950/90 border border-neutral-800 rounded-2xl px-4 py-3.5 text-sm text-white placeholder-neutral-500 outline-none focus:border-purple-500/80 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200 h-36 resize-none"
                   required
                 />
               </div>
@@ -247,8 +265,8 @@ function Contact() {
                     initial={{ opacity: 0, y: -10, height: 0 }}
                     animate={{ opacity: 1, y: 0, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className={`flex items-center gap-3 p-4 rounded-2xl text-xs font-mono backdrop-blur-md border ${
+                    transition={{ duration: 0.2 }}
+                    className={`flex items-center gap-3 p-4 rounded-2xl text-xs font-mono border ${
                       statusMessage.type === 'success' 
                         ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30' 
                         : 'bg-rose-500/10 text-rose-300 border-rose-500/30'
@@ -262,11 +280,11 @@ function Contact() {
 
               {/* Dynamic Action Button */}
               <motion.button 
-                whileHover={{ scale: isSending ? 1 : 1.015 }}
+                whileHover={{ scale: isSending ? 1 : 1.01 }}
                 whileTap={{ scale: isSending ? 1 : 0.98 }}
                 type="submit" 
                 disabled={isSending}
-                className={`w-full relative group overflow-hidden py-4 px-6 rounded-2xl font-semibold text-sm text-white shadow-xl transition-all duration-300 ${
+                className={`w-full relative group overflow-hidden py-4 px-6 rounded-2xl font-semibold text-sm text-white shadow-xl transition-all duration-200 ${
                   isSending 
                     ? 'bg-neutral-800 cursor-not-allowed text-neutral-400' 
                     : 'bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 hover:shadow-purple-500/25 cursor-pointer'
@@ -280,14 +298,13 @@ function Contact() {
                     </>
                   ) : (
                     <>
-                      <FaPaperPlane className="text-xs transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 duration-300" />
+                      <FaPaperPlane className="text-xs transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 duration-200" />
                       Send Message
                     </>
                   )}
                 </span>
                 
-                {/* Button Shine Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
               </motion.button>
 
             </form>
@@ -295,22 +312,21 @@ function Contact() {
 
           {/* Contact Details & Links */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
             viewport={{ once: true, amount: 0.2 }}
             className="lg:col-span-5 space-y-6"
           >
-            {/* Detailed Cards */}
             <div className="space-y-4">
               {contactDetails.map(({ icon: Icon, label, value, href, isEmail, badge }) => (
                 <div
                   key={label}
-                  className="group relative bg-neutral-900/60 rounded-2xl p-4 sm:p-5 border border-white/10 backdrop-blur-xl hover:border-purple-500/40 transition-all duration-300 shadow-lg"
+                  className="group relative bg-neutral-900/80 rounded-2xl p-4 sm:p-5 border border-white/10 hover:border-purple-500/40 transition-all duration-200 shadow-lg transform-gpu"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <div className="w-11 h-11 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-purple-400 group-hover:border-purple-500/30 group-hover:text-pink-400 transition-colors duration-300 flex-shrink-0">
+                      <div className="w-11 h-11 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-purple-400 group-hover:border-purple-500/30 group-hover:text-pink-400 transition-colors duration-200 flex-shrink-0">
                         <Icon className="text-lg" />
                       </div>
                       <div>
@@ -326,7 +342,6 @@ function Contact() {
                       </div>
                     </div>
 
-                    {/* Copy Button for Email */}
                     {isEmail && (
                       <button
                         type="button"
@@ -338,7 +353,6 @@ function Contact() {
                       </button>
                     )}
 
-                    {/* Status Pill Badge */}
                     {badge && (
                       <span className="hidden sm:inline-block px-2.5 py-1 rounded-full text-[10px] font-mono bg-neutral-950 text-neutral-400 border border-neutral-800">
                         {badge}
@@ -349,8 +363,7 @@ function Contact() {
               ))}
             </div>
 
-            {/* Social Links Badge Block */}
-            <div className="bg-neutral-900/60 rounded-2xl p-6 border border-white/10 backdrop-blur-xl">
+            <div className="bg-neutral-900/80 rounded-2xl p-6 border border-white/10 shadow-lg">
               <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-4 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-pink-400" /> Connect Across Networks
               </h3>
@@ -363,9 +376,9 @@ function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     title={label}
-                    whileHover={{ y: -3, scale: 1.05 }}
+                    whileHover={{ y: -2, scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`aspect-square rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-neutral-400 transition-all duration-300 ${color}`}
+                    className={`aspect-square rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-neutral-400 transition-all duration-200 ${color}`}
                   >
                     <Icon className="text-lg" />
                   </motion.a>
@@ -373,8 +386,7 @@ function Contact() {
               </div>
             </div>
 
-            {/* Response Time Card */}
-            <div className="p-5 rounded-2xl bg-gradient-to-br from-purple-900/20 to-indigo-900/20 border border-purple-500/20 backdrop-blur-xl">
+            <div className="p-5 rounded-2xl bg-gradient-to-br from-purple-900/20 to-indigo-900/20 border border-purple-500/20">
               <p className="text-xs text-purple-200/80 leading-relaxed font-mono">
                 ⚡ <strong className="text-white font-semibold">Quick Turnaround:</strong> Typically replying within 24 hours. Automated receipt confirmation sent instantly.
               </p>

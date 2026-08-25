@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
@@ -13,7 +12,6 @@ import {
   FaArrowRight,
   FaHeart
 } from 'react-icons/fa';
-import { HiSparkles } from 'react-icons/hi2';
 
 function Footer() {
   const scrollToSection = (id) => {
@@ -47,40 +45,36 @@ function Footer() {
   return (
     <footer className="relative bg-[#08080a] text-white border-t border-white/10 pt-20 pb-10 overflow-hidden font-sans selection:bg-purple-500/30">
       
-      {/* Background Ambient Glow Mesh */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-purple-600/15 rounded-full blur-[160px] animate-pulse" />
-        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-pink-600/10 rounded-full blur-[160px]" />
+      {/* GPU-Accelerated Static Radial Glow Mesh (Zero paint/rasterization overhead) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none transform-gpu">
+        <div 
+          className="absolute -bottom-32 -left-32 w-[500px] h-[500px]" 
+          style={{ background: 'radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, rgba(0, 0, 0, 0) 70%)' }} 
+        />
+        <div 
+          className="absolute top-1/2 right-0 w-[500px] h-[500px]" 
+          style={{ background: 'radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, rgba(0, 0, 0, 0) 70%)' }} 
+        />
       </div>
 
       <div className="relative container mx-auto px-6 max-w-7xl z-10">
         
-        {/* Top Feature Glassmorphic Callout Banner */}
+        {/* Top Feature Callout Banner */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true, amount: 0.3 }}
-          className="relative mb-16 p-8 sm:p-10 rounded-3xl bg-neutral-900/60 border border-white/10 backdrop-blur-xl overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl group"
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          viewport={{ once: true, amount: 0.2 }}
+          className="relative mb-16 p-8 sm:p-10 rounded-3xl bg-neutral-900/80 border border-white/10 overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl group transform-gpu"
         >
           {/* Top Border Glow Accent */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
-          <div className="absolute -top-12 -left-12 w-32 h-32 bg-purple-600/20 rounded-full blur-2xl pointer-events-none" />
           
           <div className="text-center md:text-left z-10">
-            {/* Animated Glowing Radar Badge */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-neutral-950/80 border border-purple-500/30 text-xs font-mono font-medium tracking-wider uppercase mb-3 shadow-inner">
+            {/* Clean Radar Badge */}
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-neutral-950/90 border border-purple-500/30 text-xs font-mono font-medium tracking-wider uppercase mb-3 shadow-inner">
               <div className="relative flex items-center justify-center w-2 h-2">
-                <motion.span 
-                  animate={{ opacity: [0.2, 0.8, 0.2], scale: [0.8, 1.8, 0.8] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute inset-0 rounded-full bg-pink-400/60 blur-[1px]"
-                />
-                <motion.span 
-                  animate={{ opacity: [0.4, 1, 0.4] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400"
-                />
+                <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400" />
               </div>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-200">
                 Let's build something extraordinary
@@ -92,15 +86,13 @@ function Footer() {
             </h3>
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button
             onClick={() => scrollToSection('contact')}
-            className="z-10 shrink-0 inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 font-semibold text-white shadow-xl shadow-purple-600/25 text-sm cursor-pointer group"
+            className="z-10 shrink-0 inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 font-semibold text-white shadow-xl shadow-purple-600/25 text-sm cursor-pointer group hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
           >
             <span>Start a Conversation</span>
-            <FaArrowRight size={12} className="group-hover:translate-x-1 transition-transform duration-300" />
-          </motion.button>
+            <FaArrowRight size={12} className="group-hover:translate-x-1 transition-transform duration-200" />
+          </button>
         </motion.div>
 
         {/* Main Footer Column Grid */}
@@ -127,7 +119,7 @@ function Footer() {
                 Open to Opportunities
               </div>
 
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-neutral-950 border border-neutral-800 text-xs text-neutral-300 font-mono">
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-neutral-950/90 border border-neutral-800 text-xs text-neutral-300 font-mono">
                 <FaMapMarkerAlt size={11} className="text-pink-400" />
                 Kolkata, India
               </div>
@@ -138,7 +130,7 @@ function Footer() {
               <span className="block text-xs font-mono uppercase tracking-wider text-neutral-500 mb-2">Core Tech Stack</span>
               <div className="flex flex-wrap justify-center lg:justify-start gap-1.5">
                 {techBadges.map((badge) => (
-                  <span key={badge} className="px-2.5 py-1 rounded-lg bg-neutral-950 border border-neutral-800 text-[11px] font-mono text-purple-300/80">
+                  <span key={badge} className="px-2.5 py-1 rounded-lg bg-neutral-950/90 border border-neutral-800 text-[11px] font-mono text-purple-300/80">
                     {badge}
                   </span>
                 ))}
@@ -156,9 +148,9 @@ function Footer() {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-neutral-400 hover:text-white transition-colors duration-200 text-sm flex items-center justify-center lg:justify-start gap-1.5 group cursor-pointer"
+                  className="text-neutral-400 hover:text-white transition-colors duration-150 text-sm flex items-center justify-center lg:justify-start gap-1.5 group cursor-pointer"
                 >
-                  <span className="text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity font-mono text-xs">▹</span>
+                  <span className="text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-150 font-mono text-xs">▹</span>
                   <span>{item.name}</span>
                 </button>
               ))}
@@ -173,7 +165,7 @@ function Footer() {
               </h4>
               <a 
                 href="mailto:bhabasindhudas621@gmail.com" 
-                className="inline-flex items-center gap-2.5 text-sm text-neutral-200 hover:text-purple-300 transition-colors font-medium break-all"
+                className="inline-flex items-center gap-2.5 text-sm text-neutral-200 hover:text-purple-300 transition-colors duration-150 font-medium break-all"
               >
                 <div className="w-9 h-8 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-purple-400 shrink-0">
                   <FaEnvelope size={13} />
@@ -195,9 +187,9 @@ function Footer() {
                     rel="noopener noreferrer"
                     title={label}
                     aria-label={label}
-                    whileHover={{ y: -3, scale: 1.05 }}
+                    whileHover={{ y: -2, scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`w-10 h-10 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-neutral-400 transition-all duration-300 shadow-md ${color}`}
+                    className={`w-10 h-10 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-neutral-400 transition-all duration-200 shadow-md ${color}`}
                   >
                     <Icon size={16} />
                   </motion.a>
@@ -216,13 +208,13 @@ function Footer() {
 
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5 text-neutral-400">
-              Built with <FaHeart className="text-pink-500 text-[10px]" /> React & Tailwind
+              Built with <FaHeart className="text-pink-500 text-[10px]" /> React &amp; Tailwind
             </span>
 
             <button
               onClick={scrollToTop}
               aria-label="Back to top"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-purple-500/40 text-neutral-400 hover:text-purple-300 transition-all duration-200 text-xs cursor-pointer shadow-md"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-neutral-950/90 border border-neutral-800 hover:border-purple-500/40 text-neutral-400 hover:text-purple-300 transition-all duration-200 text-xs cursor-pointer shadow-md"
             >
               Top <FaArrowUp size={10} />
             </button>

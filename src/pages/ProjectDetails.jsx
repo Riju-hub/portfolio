@@ -1,7 +1,5 @@
-
 import React, { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ProjectDetails as projectsData } from '../assets/assets';
 import { 
   FaArrowLeft, 
@@ -13,7 +11,6 @@ import {
   FaCodeBranch, 
   FaRegLightbulb 
 } from 'react-icons/fa';
-import { HiSparkles } from 'react-icons/hi2';
 
 function ProjectDetails() {
   const { id } = useParams();
@@ -43,15 +40,21 @@ function ProjectDetails() {
   if (!project) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-24 bg-[#08080a] relative overflow-hidden text-white font-sans">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[160px]" />
-          <div className="absolute -bottom-20 right-1/3 w-[500px] h-[500px] bg-pink-600/15 rounded-full blur-[160px]" />
+        <div className="absolute inset-0 overflow-hidden pointer-events-none transform-gpu">
+          <div 
+            className="absolute -top-40 -left-40 w-[500px] h-[500px]" 
+            style={{ background: 'radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, rgba(0, 0, 0, 0) 70%)' }} 
+          />
+          <div 
+            className="absolute -bottom-20 right-1/3 w-[500px] h-[500px]" 
+            style={{ background: 'radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, rgba(0, 0, 0, 0) 70%)' }} 
+          />
         </div>
 
-        <div className="relative z-10 bg-neutral-900/80 p-10 rounded-3xl border border-white/10 backdrop-blur-xl max-w-md shadow-2xl">
+        <div className="relative z-10 bg-neutral-900/90 p-10 rounded-3xl border border-white/10 max-w-md shadow-2xl">
           <h2 className="text-3xl font-black text-white mb-3">Project Not Found</h2>
           <p className="text-neutral-400 mb-6 text-sm">The project case study you are looking for doesn't exist or has been relocated.</p>
-          <Link to="/" className="inline-block px-7 py-3.5 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 text-white rounded-2xl font-semibold shadow-xl shadow-purple-600/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+          <Link to="/" className="inline-block px-7 py-3.5 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 text-white rounded-2xl font-semibold shadow-xl shadow-purple-600/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
             Back to Portfolio
           </Link>
         </div>
@@ -62,11 +65,20 @@ function ProjectDetails() {
   return (
     <div className="relative min-h-screen pt-24 pb-28 bg-[#08080a] text-neutral-200 overflow-hidden font-sans selection:bg-purple-500/30">
       
-      {/* Background Ambient Glows & Mesh Grid */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-purple-600/15 rounded-full blur-[160px] animate-pulse" />
-        <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-pink-600/10 rounded-full blur-[160px] animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute bottom-10 left-1/4 w-[500px] h-[500px] bg-indigo-600/15 rounded-full blur-[160px]" />
+      {/* GPU-Accelerated Static Radial Glow Mesh (Zero paint cost during scroll) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none transform-gpu">
+        <div 
+          className="absolute -top-40 -left-40 w-[500px] h-[500px]" 
+          style={{ background: 'radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, rgba(0, 0, 0, 0) 70%)' }} 
+        />
+        <div 
+          className="absolute top-1/3 -right-40 w-[500px] h-[500px]" 
+          style={{ background: 'radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, rgba(0, 0, 0, 0) 70%)' }} 
+        />
+        <div 
+          className="absolute bottom-10 left-1/4 w-[500px] h-[500px]" 
+          style={{ background: 'radial-gradient(circle, rgba(79, 70, 229, 0.12) 0%, rgba(0, 0, 0, 0) 70%)' }} 
+        />
       </div>
 
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-12 z-10">
@@ -75,24 +87,15 @@ function ProjectDetails() {
         <div className="flex items-center justify-between mb-10 pt-4">
           <button 
             onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-purple-300 hover:text-white bg-neutral-900/80 border border-white/10 hover:border-purple-500/40 px-4 py-2.5 rounded-2xl backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-xl"
+            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-purple-300 hover:text-white bg-neutral-900/90 border border-white/10 hover:border-purple-500/40 px-4 py-2.5 rounded-2xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-xl"
           >
             <FaArrowLeft size={12} /> Back to Projects
           </button>
 
-          {/* Animated Case Study Radar Badge */}
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-neutral-900/80 border border-purple-500/30 text-xs font-mono font-medium tracking-wider uppercase shadow-[0_0_20px_rgba(168,85,247,0.15)] backdrop-blur-md">
+          {/* Clean Radar Badge */}
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-neutral-900/90 border border-purple-500/30 text-xs font-mono font-medium tracking-wider uppercase shadow-lg">
             <div className="relative flex items-center justify-center w-2 h-2">
-              <motion.span 
-                animate={{ opacity: [0.2, 0.8, 0.2], scale: [0.8, 1.8, 0.8] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 rounded-full bg-pink-400/60 blur-[1px]"
-              />
-              <motion.span 
-                animate={{ opacity: [0.4, 1, 0.4] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400"
-              />
+              <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400" />
             </div>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-200">
               Case Study
@@ -106,7 +109,7 @@ function ProjectDetails() {
             {project.tech?.map((item, index) => (
               <span 
                 key={index} 
-                className="px-3 py-1 bg-neutral-950/90 border border-neutral-800/90 rounded-xl text-[11px] font-mono text-purple-300/90 tracking-wide hover:border-purple-500/50 hover:bg-purple-500/10 hover:text-white transition-all duration-200"
+                className="px-3 py-1 bg-neutral-950/90 border border-neutral-800/90 rounded-xl text-[11px] font-mono text-purple-300/90 tracking-wide hover:border-purple-500/50 hover:bg-purple-500/10 hover:text-white transition-all duration-150"
               >
                 {item}
               </span>
@@ -129,8 +132,8 @@ function ProjectDetails() {
                 <a 
                   href={project.code} 
                   target="_blank" 
-                  rel="noopener noreferrer"
-                  className="px-6 py-3.5 rounded-2xl bg-neutral-950 border border-neutral-800 hover:border-purple-500/40 text-neutral-200 hover:text-purple-300 font-semibold text-sm flex items-center gap-2.5 transition-all duration-300 shadow-xl"
+                  rel="noopener noreferrer" 
+                  className="px-6 py-3.5 rounded-2xl bg-neutral-950 border border-neutral-800 hover:border-purple-500/40 text-neutral-200 hover:text-purple-300 font-semibold text-sm flex items-center gap-2.5 transition-all duration-200 shadow-xl"
                 >
                   <FaGithub size={16} /> Code Repository
                 </a>
@@ -139,8 +142,8 @@ function ProjectDetails() {
                 <a 
                   href={project.demo} 
                   target="_blank" 
-                  rel="noopener noreferrer"
-                  className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 font-semibold text-white text-sm flex items-center gap-2.5 shadow-xl shadow-purple-600/25 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                  rel="noopener noreferrer" 
+                  className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 font-semibold text-white text-sm flex items-center gap-2.5 shadow-xl shadow-purple-600/25 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
                 >
                   Live Preview <FaExternalLinkAlt size={12} />
                 </a>
@@ -150,7 +153,7 @@ function ProjectDetails() {
         </div>
 
         {/* Feature Showcase Banner Image Window */}
-        <div className="relative w-full rounded-3xl overflow-hidden border border-white/10 bg-neutral-950 mb-16 shadow-2xl group">
+        <div className="relative w-full rounded-3xl overflow-hidden border border-white/10 bg-neutral-950 mb-16 shadow-2xl group transform-gpu">
           
           {/* Top Window Action Bar (Mac Aesthetic) */}
           <div className="px-5 py-3.5 bg-neutral-900/90 border-b border-white/10 flex items-center gap-2">
@@ -165,7 +168,8 @@ function ProjectDetails() {
             <img 
               src={project.image} 
               alt={project.title} 
-              className="w-full h-auto max-h-[620px] object-cover object-top group-hover:scale-[1.01] transition-transform duration-700 ease-out"
+              loading="eager"
+              className="w-full h-auto max-h-[620px] object-cover object-top group-hover:scale-[1.01] transition-transform duration-300 ease-out"
             />
           </div>
         </div>
@@ -178,9 +182,8 @@ function ProjectDetails() {
             
             {/* Overview Box */}
             {project.overview && (
-              <section className="relative bg-neutral-900/60 border border-white/10 rounded-3xl p-7 sm:p-9 backdrop-blur-xl shadow-2xl overflow-hidden group">
+              <section className="relative bg-neutral-900/80 border border-white/10 rounded-3xl p-7 sm:p-9 shadow-2xl overflow-hidden group transform-gpu">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
-                <div className="absolute -top-12 -right-12 w-36 h-36 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
                 
                 <div className="flex items-center gap-3.5 mb-5">
                   <div className="w-11 h-11 rounded-2xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-purple-400 shadow-inner">
@@ -197,22 +200,21 @@ function ProjectDetails() {
 
             {/* Key Features List */}
             {project.keyFeatures && (
-              <section className="relative bg-neutral-900/60 border border-white/10 rounded-3xl p-7 sm:p-9 backdrop-blur-xl shadow-2xl overflow-hidden group">
+              <section className="relative bg-neutral-900/80 border border-white/10 rounded-3xl p-7 sm:p-9 shadow-2xl overflow-hidden group transform-gpu">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-pink-500/50 to-transparent" />
-                <div className="absolute -top-12 -right-12 w-36 h-36 bg-pink-600/10 rounded-full blur-3xl pointer-events-none" />
                 
                 <div className="flex items-center gap-3.5 mb-6">
                   <div className="w-11 h-11 rounded-2xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-pink-400 shadow-inner">
                     <FaCogs size={18} />
                   </div>
-                  <h2 className="text-2xl font-bold text-white tracking-tight">Key Capabilities & Features</h2>
+                  <h2 className="text-2xl font-bold text-white tracking-tight">Key Capabilities &amp; Features</h2>
                 </div>
 
                 <div className="grid grid-cols-1 gap-3.5">
                   {project.keyFeatures.map((feature, idx) => (
                     <div 
                       key={idx} 
-                      className="flex items-start gap-3.5 p-4 rounded-2xl bg-neutral-950/80 border border-neutral-800/80 hover:border-purple-500/40 transition-colors duration-300"
+                      className="flex items-start gap-3.5 p-4 rounded-2xl bg-neutral-950/80 border border-neutral-800/80 hover:border-purple-500/40 transition-colors duration-200"
                     >
                       <FaCheckCircle className="text-purple-400 mt-1 shrink-0 text-base" />
                       <span className="text-neutral-200 text-sm sm:text-base leading-relaxed">{feature}</span>
@@ -229,9 +231,8 @@ function ProjectDetails() {
             
             {/* System Architecture Card */}
             {project.architecture && (
-              <section className="relative bg-neutral-900/60 border border-white/10 rounded-3xl p-7 sm:p-8 backdrop-blur-xl shadow-2xl overflow-hidden group">
+              <section className="relative bg-neutral-900/80 border border-white/10 rounded-3xl p-7 sm:p-8 shadow-2xl overflow-hidden group transform-gpu">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
                 
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-indigo-400 shadow-inner">
@@ -247,7 +248,7 @@ function ProjectDetails() {
             )}
 
             {/* Quick Tech Specs Panel */}
-            <section className="relative bg-neutral-900/60 border border-white/10 rounded-3xl p-7 sm:p-8 backdrop-blur-xl shadow-xl">
+            <section className="relative bg-neutral-900/80 border border-white/10 rounded-3xl p-7 sm:p-8 shadow-xl">
               <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-4 flex items-center gap-2">
                 <FaCodeBranch className="text-purple-400" /> Technology Stack
               </h3>
@@ -256,7 +257,7 @@ function ProjectDetails() {
                 {project.tech?.map((tech, idx) => (
                   <span 
                     key={idx} 
-                    className="px-3 py-1.5 bg-neutral-950/90 border border-neutral-800/90 rounded-xl text-xs font-mono text-purple-300/90 tracking-wide hover:border-purple-500/50 hover:bg-purple-500/10 hover:text-white transition-all duration-200"
+                    className="px-3 py-1.5 bg-neutral-950/90 border border-neutral-800/90 rounded-xl text-xs font-mono text-purple-300/90 tracking-wide hover:border-purple-500/50 hover:bg-purple-500/10 hover:text-white transition-all duration-150"
                   >
                     {tech}
                   </span>

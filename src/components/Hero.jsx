@@ -1,6 +1,5 @@
-
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { assets } from '../assets/assets';
 import { 
   FaGithub, 
@@ -10,9 +9,6 @@ import {
   FaInstagram, 
   FaArrowDown, 
   FaExternalLinkAlt,
-  FaReact,
-  FaPython,
-  FaBrain,
   FaCode,
   FaPaperPlane
 } from 'react-icons/fa';
@@ -28,7 +24,6 @@ function Hero() {
 
   useEffect(() => {
     const targetTitle = titles[currentTitleIndex];
-
     const typingSpeed = isDeleting ? 35 : 75;
     const pauseBeforeDelete = 2200;
 
@@ -53,7 +48,7 @@ function Hero() {
 
     const timer = setTimeout(handleTyping, typingSpeed);
     return () => clearTimeout(timer);
-  }, [currentText, isDeleting, currentTitleIndex, titles]);
+  }, [currentText, isDeleting, currentTitleIndex]);
 
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -74,24 +69,33 @@ function Hero() {
       id='home'
       className='relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden bg-[#08080a] text-white'
     >
-      {/* Dynamic Ambient Glow Mesh */}
-      <div className='absolute inset-0 overflow-hidden pointer-events-none'>
-        <div className='absolute -top-32 -left-32 w-[30rem] h-[30rem] bg-purple-600/20 rounded-full blur-[140px] animate-pulse' />
-        <div className='absolute top-1/3 -right-32 w-[30rem] h-[30rem] bg-pink-500/15 rounded-full blur-[140px] animate-pulse' style={{ animationDelay: '2s' }} />
-        <div className='absolute -bottom-20 left-1/2 -translate-x-1/2 w-[35rem] h-[35rem] bg-indigo-600/15 rounded-full blur-[160px]' />
+      {/* GPU-Accelerated Static Radial Glow Mesh (Zero paint cost vs 140px/160px pulse blurs) */}
+      <div className='absolute inset-0 overflow-hidden pointer-events-none transform-gpu'>
+        <div 
+          className='absolute -top-32 -left-32 w-[30rem] h-[30rem]' 
+          style={{ background: 'radial-gradient(circle, rgba(147, 51, 234, 0.18) 0%, rgba(0, 0, 0, 0) 70%)' }} 
+        />
+        <div 
+          className='absolute top-1/3 -right-32 w-[30rem] h-[30rem]' 
+          style={{ background: 'radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, rgba(0, 0, 0, 0) 70%)' }} 
+        />
+        <div 
+          className='absolute -bottom-20 left-1/2 -translate-x-1/2 w-[35rem] h-[35rem]' 
+          style={{ background: 'radial-gradient(circle, rgba(79, 70, 229, 0.12) 0%, rgba(0, 0, 0, 0) 70%)' }} 
+        />
       </div>
 
       <div className='relative container mx-auto px-6 max-w-7xl flex flex-col-reverse md:flex-row items-center justify-between gap-12 lg:gap-16 z-10'>
         
         {/* Left Content Area */}
         <motion.div
-          initial={{ opacity: 0, x: -40 }}
+          initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className='w-full md:w-1/2 text-center md:text-left'
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className='w-full md:w-1/2 text-center md:text-left transform-gpu'
         >
-          {/* Glassmorphic Availability Status Pill */}
-          <div className='inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-neutral-900/80 border border-emerald-500/30 backdrop-blur-md text-xs sm:text-sm text-emerald-300 mb-6 shadow-[0_0_20px_rgba(16,185,129,0.1)]'>
+          {/* Availability Status Pill */}
+          <div className='inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-neutral-900/90 border border-emerald-500/30 text-xs sm:text-sm text-emerald-300 mb-6 shadow-md'>
             <span className='relative flex h-2.5 w-2.5'>
               <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75' />
               <span className='relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500' />
@@ -107,20 +111,16 @@ function Hero() {
             </span>
           </h1>
 
-          {/* Dynamic Ultra-Smooth Typewriter Pill Box */}
+          {/* Typewriter Pill Box */}
           <div className="w-full flex justify-center md:justify-start items-center mb-6">
-            <div className="px-4 py-2 rounded-2xl bg-neutral-900/60 border border-white/10 backdrop-blur-xl inline-flex items-center gap-2 shadow-xl">
-              <HiCodeBracketSquare className="text-purple-400 text-xl" />
+            <div className="px-4 py-2 rounded-2xl bg-neutral-900/80 border border-white/10 inline-flex items-center gap-2 shadow-lg">
+              <HiCodeBracketSquare className="text-purple-400 text-xl flex-shrink-0" />
               <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-300 tracking-wider font-mono uppercase">
                 {currentText}
               </h2>
 
-              {/* Glowing Smooth Cursor Line */}
-              <motion.span 
-                animate={{ opacity: [1, 0, 1] }}
-                transition={{ duration: 0.7, repeat: Infinity, ease: "easeInOut" }}
-                className="w-[3px] h-6 bg-gradient-to-b from-purple-400 to-pink-500 rounded-full shadow-[0_0_8px_rgba(236,72,153,0.8)]"
-              />
+              {/* Smooth Cursor */}
+              <span className="w-[3px] h-6 bg-gradient-to-b from-purple-400 to-pink-500 rounded-full animate-pulse" />
             </div>
           </div>
 
@@ -138,18 +138,15 @@ function Hero() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => window.open(resumeUrl, '_blank')}
-              className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 rounded-2xl font-semibold text-sm text-white overflow-hidden shadow-xl cursor-pointer"
+              className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 rounded-2xl font-semibold text-sm text-white overflow-hidden shadow-xl cursor-pointer bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 blur-lg opacity-40 group-hover:opacity-75 transition duration-500" />
-              
               <span className="relative z-10 flex items-center gap-2">
                 Resume
                 <FaExternalLinkAlt className="text-xs text-purple-200 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
               </span>
 
               {/* Button Shine Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
             </motion.button>
 
             {/* Secondary CTA: View Work */}
@@ -157,7 +154,7 @@ function Hero() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => scrollToSection('projects')}
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-neutral-900/80 hover:bg-neutral-800 text-neutral-200 hover:text-white rounded-2xl font-semibold text-sm border border-white/10 transition-all duration-300 backdrop-blur-xl shadow-lg cursor-pointer"
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-neutral-900/90 hover:bg-neutral-800 text-neutral-200 hover:text-white rounded-2xl font-semibold text-sm border border-white/10 transition-all duration-200 shadow-lg cursor-pointer"
             >
               <FaCode className="text-purple-400 text-xs" />
               View Projects
@@ -166,7 +163,7 @@ function Hero() {
             {/* Tertiary CTA: Contact */}
             <button
               onClick={() => scrollToSection('contact')}
-              className="inline-flex items-center gap-2 px-5 py-3.5 text-neutral-400 hover:text-purple-300 font-medium text-sm transition-colors duration-300 cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-3.5 text-neutral-400 hover:text-purple-300 font-medium text-sm transition-colors duration-200 cursor-pointer"
             >
               <FaPaperPlane className="text-xs" /> Contact Me
             </button>
@@ -183,54 +180,58 @@ function Hero() {
                 rel="noopener noreferrer"
                 aria-label={label}
                 title={label}
-                whileHover={{ y: -3, scale: 1.05 }}
+                whileHover={{ y: -2, scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`w-10 h-10 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-neutral-400 transition-all duration-300 shadow-md ${color}`}
+                className={`w-10 h-10 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-neutral-400 transition-all duration-200 shadow-md ${color}`}
               >
                 <Icon size={16} />
               </motion.a>
             ))}
           </div>
         </motion.div>
-<motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+
+        {/* Right Avatar & Floating Badges */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          className="w-full md:w-1/2 flex justify-center z-10"
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+          className="w-full md:w-1/2 flex justify-center z-10 transform-gpu"
         >
           <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-[380px] lg:h-[380px]">
             
-            {/* Ambient Multi-Layer Glow Halo */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-600 via-pink-500 to-indigo-500 opacity-40 blur-3xl animate-pulse" />
+            {/* Soft Avatar Halo Glow (Radial Gradient instead of multi-layer blur-3xl pulse) */}
+            <div 
+              className="absolute inset-0 rounded-full opacity-60" 
+              style={{ background: 'radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, rgba(236, 72, 153, 0.2) 50%, rgba(0, 0, 0, 0) 75%)' }}
+            />
             
             {/* 1. TOP-RIGHT: AI & Machine Learning Badge */}
             <motion.div 
-              animate={{ y: [8, -8, 8] }}
-              transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-3 -right-4 sm:-top-5 sm:-right-6 z-20 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-neutral-900/90 border border-pink-500/20 backdrop-blur-xl shadow-2xl flex items-center gap-2.5 text-xs sm:text-sm text-pink-300 font-medium"
+              animate={{ y: [4, -4, 4] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-3 -right-4 sm:-top-5 sm:-right-6 z-20 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-neutral-900/95 border border-pink-500/30 shadow-xl flex items-center gap-2.5 text-xs sm:text-sm text-pink-300 font-medium transform-gpu"
             >
-              <HiSparkles className="text-pink-400 text-base sm:text-lg animate-pulse" />
+              <HiSparkles className="text-pink-400 text-base sm:text-lg" />
               <span>AI &amp; Machine Learning</span>
             </motion.div>
 
             {/* 2. BOTTOM-LEFT: Full Stack Developer Badge */}
             <motion.div 
-              animate={{ y: [-8, 8, -8] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-3 -left-4 sm:-bottom-5 sm:-left-6 z-20 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-neutral-900/90 border border-purple-500/20 backdrop-blur-xl shadow-2xl flex items-center gap-2.5 text-xs sm:text-sm text-purple-300 font-medium"
+              animate={{ y: [-4, 4, -4] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -bottom-3 -left-4 sm:-bottom-5 sm:-left-6 z-20 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-neutral-900/95 border border-purple-500/30 shadow-xl flex items-center gap-2.5 text-xs sm:text-sm text-purple-300 font-medium transform-gpu"
             >
               <HiCodeBracketSquare className="text-purple-400 text-base sm:text-lg" />
               <span>Full Stack Developer</span>
             </motion.div>
 
             {/* Profile Avatar Outer Gradient Ring */}
-            <div className="relative w-full h-full rounded-full p-2.5 bg-gradient-to-tr from-purple-500/40 via-pink-500/20 to-indigo-500/40 backdrop-blur-md border border-white/10 shadow-2xl">
-              <motion.img
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 5, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
+            <div className="relative w-full h-full rounded-full p-2.5 bg-gradient-to-tr from-purple-500/30 via-pink-500/15 to-indigo-500/30 border border-white/10 shadow-2xl">
+              <img
                 className="rounded-full w-full h-full object-cover z-10 border-2 border-neutral-950 shadow-2xl" 
                 src={assets.profileImg} 
                 alt="Bhabasindhu Das Profile" 
+                loading="eager"
               />
             </div>
           </div>
@@ -242,7 +243,7 @@ function Hero() {
       <button
         onClick={() => scrollToSection('about')}
         aria-label="Scroll to About section"
-        className='hidden md:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-neutral-500 hover:text-purple-400 transition duration-300 z-10 cursor-pointer'
+        className='hidden md:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-neutral-500 hover:text-purple-400 transition duration-200 z-10 cursor-pointer'
       >
         <span className='text-[10px] uppercase tracking-widest font-mono'>Scroll Down</span>
         <FaArrowDown className='animate-bounce text-purple-400' size={12} />
