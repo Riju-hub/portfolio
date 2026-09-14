@@ -10,31 +10,51 @@ const AiMachineLogo = ({ className }) => (
   />
 );
 
-// Formatter to remove raw asterisks, bold key terms, and render clean bullet points
+// Formatter to remove raw dots and replace with glowing modern icons & gradient bold text
 const FormattedMessage = ({ content }) => {
   if (!content) return null;
 
   return (
-    <div className="space-y-1.5 leading-relaxed">
+    <div className="space-y-2 leading-relaxed">
       {content.split('\n').map((line, lineIdx) => {
         const trimmed = line.trim();
         if (!trimmed) return null;
 
-        const parts = trimmed.split(/(\*\*.*?\*\*)/g);
+        // Check if line starts with a bullet dot or dash
+        const isBullet = trimmed.startsWith('•') || trimmed.startsWith('-');
+        // Strip out the raw bullet character so we can render our custom icon instead
+        const rawContent = isBullet ? trimmed.replace(/^[•\-]\s*/, '') : trimmed;
+
+        const parts = rawContent.split(/(\*\*.*?\*\*)/g);
 
         return (
-          <div key={lineIdx} className={trimmed.startsWith('•') || trimmed.startsWith('-') ? 'pl-2' : ''}>
-            {parts.map((part, partIdx) => {
-              if (part.startsWith('**') && part.endsWith('**')) {
-                const keyword = part.slice(2, -2);
-                return (
-                  <strong key={partIdx} className="font-semibold text-sky-300">
-                    {keyword}
-                  </strong>
-                );
-              }
-              return <span key={partIdx}>{part}</span>;
-            })}
+          <div
+            key={lineIdx}
+            className={`flex items-start ${isBullet ? 'gap-2 pl-0.5' : ''}`}
+          >
+            {/* Modern Glowing Chevron Badge instead of old dot */}
+            {isBullet && (
+              <span className="mt-1 flex-shrink-0 flex items-center justify-center w-4 h-4 rounded-md bg-sky-500/20 border border-sky-400/40 text-cyan-300 shadow-[0_0_8px_rgba(56,189,248,0.4)]">
+                <ChevronRight className="w-2.5 h-2.5 stroke-[2.5]" />
+              </span>
+            )}
+
+            <div className="flex-1">
+              {parts.map((part, partIdx) => {
+                if (part.startsWith('**') && part.endsWith('**')) {
+                  const keyword = part.slice(2, -2);
+                  return (
+                    <strong
+                      key={partIdx}
+                      className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-sky-200"
+                    >
+                      {keyword}
+                    </strong>
+                  );
+                }
+                return <span key={partIdx}>{part}</span>;
+              })}
+            </div>
           </div>
         );
       })}
@@ -42,22 +62,43 @@ const FormattedMessage = ({ content }) => {
   );
 };
 
-// Helper to assign matching icons & emojis based on prompt intent
 const getChipVisuals = (text) => {
   const lower = text.toLowerCase();
-  if (lower.includes('project') || lower.includes('staynova') || lower.includes('meetify') || lower.includes('rankresume') || lower.includes('novacommerce')) {
-    return { icon: <FolderGit2 className="w-3.5 h-3.5 text-cyan-400" />, emoji: '🚀' };
+  if (
+    lower.includes('project') ||
+    lower.includes('staynova') ||
+    lower.includes('meetify') ||
+    lower.includes('rankresume') ||
+    lower.includes('novacommerce')
+  ) {
+    return { icon: <FolderGit2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-cyan-400 flex-shrink-0" />, emoji: '🚀' };
   }
-  if (lower.includes('stack') || lower.includes('skill') || lower.includes('tech') || lower.includes('react') || lower.includes('node')) {
-    return { icon: <Code2 className="w-3.5 h-3.5 text-sky-400" />, emoji: '⚡' };
+  if (
+    lower.includes('stack') ||
+    lower.includes('skill') ||
+    lower.includes('tech') ||
+    lower.includes('react') ||
+    lower.includes('node')
+  ) {
+    return { icon: <Code2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-sky-400 flex-shrink-0" />, emoji: '⚡' };
   }
-  if (lower.includes('experience') || lower.includes('intern') || lower.includes('work') || lower.includes('zaalima')) {
-    return { icon: <Briefcase className="w-3.5 h-3.5 text-indigo-400" />, emoji: '💼' };
+  if (
+    lower.includes('experience') ||
+    lower.includes('intern') ||
+    lower.includes('work') ||
+    lower.includes('zaalima')
+  ) {
+    return { icon: <Briefcase className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-indigo-400 flex-shrink-0" />, emoji: '💼' };
   }
-  if (lower.includes('contact') || lower.includes('hire') || lower.includes('email') || lower.includes('touch')) {
-    return { icon: <Mail className="w-3.5 h-3.5 text-emerald-400" />, emoji: '📫' };
+  if (
+    lower.includes('contact') ||
+    lower.includes('hire') ||
+    lower.includes('email') ||
+    lower.includes('touch')
+  ) {
+    return { icon: <Mail className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-400 flex-shrink-0" />, emoji: '📫' };
   }
-  return { icon: <Cpu className="w-3.5 h-3.5 text-violet-400" />, emoji: '✨' };
+  return { icon: <Cpu className="w-3.5 h-3.5 text-violet-400 flex-shrink-0" />, emoji: '✨' };
 };
 
 const INITIAL_SUGGESTIONS = [
@@ -67,7 +108,6 @@ const INITIAL_SUGGESTIONS = [
   '📫 How to Contact?'
 ];
 
-// Helper to extract suggestions tag from AI response
 const parseAiResponse = (rawText) => {
   const match = rawText.match(/\[SUGGESTIONS:\s*(.*?)\]/i);
   if (match) {
@@ -158,31 +198,38 @@ export default function ChatbotWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans select-none pointer-events-none">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 font-sans select-none pointer-events-none">
       <style>{`
         @keyframes pureBonfireGlow {
           0%, 100% {
-            box-shadow: 0 0 20px 4px rgba(56, 189, 248, 0.45),
-                        0 -8px 28px 6px rgba(14, 165, 233, 0.35);
+            box-shadow: 0 0 16px 3px rgba(56, 189, 248, 0.35),
+                        0 -6px 22px 5px rgba(14, 165, 233, 0.25);
           }
           50% {
-            box-shadow: 0 0 28px 7px rgba(56, 189, 248, 0.65),
-                        0 -14px 38px 9px rgba(14, 165, 233, 0.45);
+            box-shadow: 0 0 26px 6px rgba(56, 189, 248, 0.55),
+                        0 -10px 34px 8px rgba(14, 165, 233, 0.35);
           }
         }
         .bonfire-shadow-layer {
           will-change: box-shadow;
           animation: pureBonfireGlow 3s ease-in-out infinite alternate;
         }
-        @keyframes matrixDrift {
-          0% { transform: translateY(0) rotate(-18deg); }
-          100% { transform: translateY(-40px) rotate(-18deg); }
+
+        /* Seamless Continuous Watermark Glide */
+        @keyframes smoothWatermarkLoop {
+          0% {
+            transform: translate3d(0, 0, 0) rotate(-16deg);
+          }
+          100% {
+            transform: translate3d(-180px, -240px, 0) rotate(-16deg);
+          }
         }
-        .animate-watermark-matrix {
+
+        .animate-watermark-smooth {
           will-change: transform;
-          animation: matrixDrift 16s linear infinite;
+          animation: smoothWatermarkLoop 18s linear infinite;
         }
-        /* Completely hide scrollbars across Chrome, Safari, Edge, and Firefox */
+
         .hide-scrollbar::-webkit-scrollbar {
           display: none;
         }
@@ -212,8 +259,7 @@ export default function ChatbotWidget() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.12 }}
-                    style={{ width: '320px', minWidth: '320px', maxWidth: '320px' }}
-                    className="mb-3 p-3.5 bg-slate-950/90 border border-sky-400/40 rounded-2xl backdrop-blur-md relative cursor-pointer group shadow-[0_0_20px_rgba(56,189,248,0.25)] flex-shrink-0"
+                    className="mb-3 w-[calc(100vw-2.5rem)] sm:w-80 max-w-[320px] p-3 sm:p-3.5 bg-slate-950/40 border border-sky-400/35 rounded-2xl backdrop-blur-md relative cursor-pointer group shadow-[0_0_20px_rgba(56,189,248,0.2)] flex-shrink-0"
                     onClick={handleOpenChat}
                   >
                     <button
@@ -221,29 +267,29 @@ export default function ChatbotWidget() {
                         e.stopPropagation();
                         setShowPopup(false);
                       }}
-                      className="absolute top-2 right-2 text-sky-400/60 hover:text-sky-200 p-0.5 rounded-md hover:bg-sky-950/60 transition-colors"
+                      className="absolute top-2 right-2 text-rose-400/80 hover:text-rose-200 p-1 rounded-md hover:bg-rose-950/40 transition-colors"
                       aria-label="Dismiss message"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
 
-                    <div className="flex items-start gap-3">
-                      <div className="p-0.5 rounded-full bg-sky-950/80 border border-sky-500/40 flex-shrink-0 mt-0.5">
-                        <AiMachineLogo className="w-7 h-7" />
+                    <div className="flex items-start gap-2.5 sm:gap-3">
+                      <div className="p-0.5 rounded-full bg-sky-950/60 border border-sky-500/40 flex-shrink-0 mt-0.5">
+                        <AiMachineLogo className="w-6 h-6 sm:w-7 sm:h-7" />
                       </div>
                       <div className="flex-1 pr-3">
                         <div className="flex items-center gap-1.5 mb-1">
                           <span className="font-semibold text-xs text-sky-200 font-mono">Bhabasindhu AI</span>
                           <Sparkles className="w-3 h-3 text-sky-400 animate-pulse" />
                         </div>
-                        <p className="text-[12.5px] text-slate-200 leading-snug">
+                        <p className="text-[12px] sm:text-[12.5px] text-slate-100 leading-snug">
                           Looking for a quick technical summary or project breakdown?{' '}
                           <span className="text-sky-400 font-medium group-hover:underline">Ask me here →</span>
                         </p>
                       </div>
                     </div>
 
-                    <div className="absolute -bottom-2 right-6 w-3.5 h-3.5 bg-slate-950/90 border-r border-b border-sky-400/40 transform rotate-45" />
+                    <div className="absolute -bottom-2 right-5 sm:right-6 w-3.5 h-3.5 bg-slate-950/40 border-r border-b border-sky-400/35 transform rotate-45" />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -251,12 +297,11 @@ export default function ChatbotWidget() {
               {/* Launcher Button */}
               <button
                 onClick={handleOpenChat}
-                style={{ width: '56px', height: '56px', minWidth: '56px', minHeight: '56px' }}
-                className="relative bonfire-shadow-layer bg-slate-950/90 border border-sky-400/60 text-sky-400 rounded-full flex items-center justify-center backdrop-blur-sm group cursor-pointer transition-transform hover:scale-105 active:scale-95 flex-shrink-0"
+                className="relative bonfire-shadow-layer bg-slate-950/50 border border-sky-400/60 text-sky-400 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center backdrop-blur-md group cursor-pointer transition-transform hover:scale-105 active:scale-95 flex-shrink-0"
                 aria-label="Open Bhabasindhu AI"
               >
                 <span className="absolute inset-0 rounded-full border border-sky-400/40 animate-ping pointer-events-none opacity-30" />
-                <AiMachineLogo className="w-10 h-10 relative z-10" />
+                <AiMachineLogo className="w-8 h-8 sm:w-10 sm:h-10 relative z-10" />
               </button>
             </motion.div>
           ) : (
@@ -266,93 +311,91 @@ export default function ChatbotWidget() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.12 }}
-              style={{
-                width: '385px',
-                height: '540px',
-                minWidth: '385px',
-                minHeight: '540px',
-                maxWidth: '385px',
-                maxHeight: '540px'
-              }}
-              className="absolute bottom-0 right-0 pointer-events-auto rounded-3xl flex-shrink-0"
+              className="absolute bottom-0 right-0 pointer-events-auto rounded-2xl sm:rounded-3xl flex-shrink-0 w-[calc(100vw-2rem)] sm:w-[385px] max-w-[420px] h-[min(550px,calc(100dvh-5.5rem))] flex flex-col"
             >
-              <div className="bonfire-shadow-layer w-full h-full bg-slate-950/95 border border-sky-400/40 text-sky-100 rounded-3xl flex flex-col overflow-hidden backdrop-blur-md relative">
-                {/* Background Watermark Matrix */}
+              {/* Ultra Transparent Window Body */}
+              <div className="bonfire-shadow-layer w-full h-full bg-slate-950/25 border border-sky-400/30 text-sky-100 rounded-2xl sm:rounded-3xl flex flex-col overflow-hidden backdrop-blur-md relative">
+                
+                {/* Background Watermark Matrix with Red Heart Symbols */}
                 <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 flex items-center justify-center">
-                  <div className="animate-watermark-matrix flex flex-col gap-5 whitespace-nowrap opacity-[0.05] text-sky-200">
-                    {Array.from({ length: 9 }).map((_, rowIndex) => (
+                  <div className="animate-watermark-smooth flex flex-col gap-6 whitespace-nowrap opacity-20 text-sky-300">
+                    {Array.from({ length: 14 }).map((_, rowIndex) => (
                       <div
                         key={rowIndex}
-                        className={`flex gap-6 font-black tracking-widest text-lg uppercase ${
-                          rowIndex % 2 === 0 ? 'ml-8' : '-ml-8'
+                        className={`flex items-center gap-6 font-black tracking-widest text-base sm:text-lg uppercase transition-opacity ${
+                          rowIndex % 2 === 0 ? 'ml-12' : '-ml-12'
                         }`}
                       >
                         <span>BHABASINDHU AI</span>
-                        <span>•</span>
+                        <span className="text-red-500 font-normal drop-shadow-[0_0_6px_rgba(239,68,68,0.8)] text-sm">❤️</span>
                         <span>BHABASINDHU AI</span>
-                        <span>•</span>
+                        <span className="text-red-500 font-normal drop-shadow-[0_0_6px_rgba(239,68,68,0.8)] text-sm">❤️</span>
                         <span>BHABASINDHU AI</span>
+                        <span className="text-red-500 font-normal drop-shadow-[0_0_6px_rgba(239,68,68,0.8)] text-sm">❤️</span>
+                        <span>BHABASINDHU AI</span>
+                        <span className="text-red-500 font-normal drop-shadow-[0_0_6px_rgba(239,68,68,0.8)] text-sm">❤️</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Header */}
-                <div className="relative z-10 bg-slate-900/80 px-5 py-3.5 flex items-center justify-between border-b border-sky-500/25 flex-shrink-0">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-0.5 rounded-full bg-sky-950/80 border border-sky-500/40">
-                      <AiMachineLogo className="w-7 h-7" />
+                <div className="relative z-10 bg-slate-900/20 px-4 py-3 sm:px-5 sm:py-3.5 flex items-center justify-between border-b border-sky-500/15 flex-shrink-0">
+                  <div className="flex items-center space-x-2.5 sm:space-x-3">
+                    <div className="p-0.5 rounded-full bg-sky-950/60 border border-sky-500/40">
+                      <AiMachineLogo className="w-6 h-6 sm:w-7 sm:h-7" />
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-bold text-sm tracking-wide text-sky-100 flex items-center gap-1.5">
+                      <span className="font-bold text-xs sm:text-sm tracking-wide text-sky-100 flex items-center gap-1.5">
                         Bhabasindhu AI
-                        <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/40 font-mono">
+                        <span className="text-[9px] sm:text-[10px] px-1.5 py-0.2 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/40 font-mono">
                           CORE
                         </span>
                       </span>
                       <div className="flex items-center space-x-1.5">
-                        <span className="relative flex h-2 w-2">
+                        <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-400 shadow-[0_0_6px_#38bdf8]" />
+                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-sky-400 shadow-[0_0_6px_#38bdf8]" />
                         </span>
-                        <span className="text-[11px] text-sky-300/80 font-mono">NEURAL ACTIVE</span>
+                        <span className="text-[10px] sm:text-[11px] text-sky-300/80 font-mono">NEURAL ACTIVE</span>
                       </div>
                     </div>
                   </div>
 
+                  {/* Attractive Glowing Rose/Pink Close Button */}
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="text-sky-400/70 hover:text-sky-100 p-1.5 rounded-xl hover:bg-sky-900/40 transition-colors"
+                    className="relative group p-1.5 rounded-xl bg-gradient-to-tr from-pink-500/20 via-rose-500/25 to-fuchsia-500/20 hover:from-pink-500/35 hover:to-rose-500/40 border border-rose-400/40 hover:border-rose-400 text-rose-300 hover:text-rose-100 transition-all duration-300 active:scale-90 shadow-[0_0_12px_rgba(244,63,94,0.3)] hover:shadow-[0_0_16px_rgba(244,63,94,0.5)] cursor-pointer"
                     aria-label="Close chat"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:rotate-90 text-rose-300 group-hover:text-white" />
                   </button>
                 </div>
 
                 {/* Message Log */}
-                <div className="relative z-10 flex-1 p-4 overflow-y-auto overflow-x-hidden space-y-3.5 text-sm hide-scrollbar">
+                <div className="relative z-10 flex-1 p-3.5 sm:p-4 overflow-y-auto overflow-x-hidden space-y-3 text-xs sm:text-sm hide-scrollbar">
                   {messages.map((msg, index) => (
                     <div
                       key={index}
-                      className={`flex items-start space-x-2.5 ${
+                      className={`flex items-start space-x-2 sm:space-x-2.5 ${
                         msg.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''
                       }`}
                     >
                       {msg.role !== 'user' ? (
-                        <div className="p-0.5 rounded-full bg-sky-950/70 border border-sky-500/30 mt-0.5 flex-shrink-0">
-                          <AiMachineLogo className="w-5 h-5" />
+                        <div className="p-0.5 rounded-full bg-sky-950/60 border border-sky-500/30 mt-0.5 flex-shrink-0">
+                          <AiMachineLogo className="w-4 h-4 sm:w-5 sm:h-5" />
                         </div>
                       ) : (
-                        <div className="p-1.5 rounded-lg bg-sky-600/30 border border-sky-400/40 mt-0.5 flex-shrink-0">
+                        <div className="p-1 sm:p-1.5 rounded-lg bg-sky-600/30 border border-sky-400/40 mt-0.5 flex-shrink-0">
                           <User className="w-3.5 h-3.5 text-sky-300" />
                         </div>
                       )}
 
                       <div
-                        className={`max-w-[84%] px-4 py-2.5 rounded-2xl text-[13.5px] ${
+                        className={`max-w-[85%] px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl text-[12.5px] sm:text-[13.5px] backdrop-blur-sm ${
                           msg.role === 'user'
-                            ? 'bg-sky-600/85 text-white rounded-tr-none border border-sky-400/40 shadow-[0_0_12px_rgba(14,165,233,0.3)]'
-                            : 'bg-slate-900/80 text-sky-50 rounded-tl-none border border-sky-500/30 shadow-[0_0_10px_rgba(0,0,0,0.2)]'
+                            ? 'bg-sky-600/60 text-white rounded-tr-none border border-sky-400/40 shadow-[0_0_12px_rgba(14,165,233,0.25)]'
+                            : 'bg-slate-950/40 text-sky-50 rounded-tl-none border border-sky-500/25 shadow-[0_0_10px_rgba(0,0,0,0.2)]'
                         }`}
                       >
                         <FormattedMessage content={msg.content} />
@@ -361,19 +404,19 @@ export default function ChatbotWidget() {
                   ))}
 
                   {loading && (
-                    <div className="flex items-center space-x-2.5 text-sky-300/80 text-xs italic ml-1 font-mono">
-                      <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping" />
+                    <div className="flex items-center space-x-2 text-sky-300/80 text-[11px] sm:text-xs italic ml-1 font-mono">
+                      <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-sky-400 animate-ping" />
                       <span>Computing neural weights...</span>
                     </div>
                   )}
                   <div ref={messagesEndRef} />
                 </div>
 
-                {/* Recommendations Strip: Positioned Above the Input Form */}
-                <div className="relative z-10 bg-slate-950/80 backdrop-blur-md border-t border-sky-500/20 px-3 py-2 flex items-center gap-2 overflow-x-auto hide-scrollbar flex-shrink-0">
-                  <div className="flex items-center gap-1 text-[11px] text-sky-400/70 font-mono pl-1 flex-shrink-0 select-none">
+                {/* Recommendations Strip: Sheer Frosted Bar */}
+                <div className="relative z-10 bg-slate-950/20 border-t border-sky-500/15 px-2.5 py-2 sm:px-3 flex items-center gap-1.5 sm:gap-2 overflow-x-auto hide-scrollbar flex-shrink-0">
+                  <div className="flex items-center gap-1 text-[10.5px] sm:text-[11px] text-sky-400/70 font-mono pl-1 flex-shrink-0 select-none">
                     <Sparkles className="w-3 h-3 text-sky-400 animate-pulse" />
-                    <span>Suggestions:</span>
+                    <span className="hidden xs:inline">Suggestions:</span>
                   </div>
                   {currentSuggestions.map((suggestion, idx) => {
                     const { icon, emoji } = getChipVisuals(suggestion);
@@ -382,36 +425,53 @@ export default function ChatbotWidget() {
                         key={idx}
                         onClick={() => handleSendMessage(suggestion)}
                         disabled={loading}
-                        className="group flex items-center gap-1.5 text-[11.5px] font-medium whitespace-nowrap px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-950/80 via-slate-900/90 to-indigo-950/80 hover:from-sky-900/90 hover:to-indigo-900/90 border border-sky-500/30 hover:border-sky-400 text-slate-200 hover:text-white transition-all active:scale-95 disabled:opacity-40 cursor-pointer shadow-[0_2px_10px_rgba(14,165,233,0.15)] flex-shrink-0"
+                        className="group flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-[11.5px] font-medium whitespace-nowrap px-2.5 py-1.5 sm:px-3 rounded-lg sm:rounded-xl bg-sky-950/30 hover:bg-sky-900/50 border border-sky-400/25 hover:border-sky-400/60 text-slate-100 hover:text-white transition-all active:scale-95 disabled:opacity-40 cursor-pointer shadow-[0_2px_8px_rgba(14,165,233,0.1)] flex-shrink-0"
                       >
                         <span className="text-xs group-hover:scale-110 transition-transform">{emoji}</span>
                         <span>{suggestion.replace(/^[^\w\s]+/, '').trim()}</span>
                         {icon}
-                        <ChevronRight className="w-3 h-3 text-sky-400/50 group-hover:translate-x-0.5 group-hover:text-sky-300 transition-all" />
+                        <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-sky-400/50 group-hover:translate-x-0.5 group-hover:text-sky-300 transition-all" />
                       </button>
                     );
                   })}
                 </div>
 
-                {/* Chat Input Form */}
+                {/* Vibrant & Engaging Input Form */}
                 <form
                   onSubmit={handleSubmit}
-                  className="relative z-10 p-3 bg-slate-900/80 border-t border-sky-500/20 flex items-center space-x-2 flex-shrink-0"
+                  className="relative z-10 p-2.5 sm:p-3 bg-gradient-to-t from-slate-950/70 via-slate-900/35 to-transparent border-t border-sky-500/20 flex items-center space-x-2 flex-shrink-0"
                 >
-                  <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="Query projects, tech stack, or experience..."
-                    className="flex-1 bg-slate-950/80 border border-sky-500/30 rounded-xl px-3.5 py-2.5 text-sm text-sky-100 placeholder-sky-400/40 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all font-mono"
-                  />
+                  {/* Gradient Border Capsule */}
+                  <div className="relative flex-1 group">
+                    <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-sky-500 via-cyan-400 to-indigo-500 opacity-25 group-hover:opacity-60 group-focus-within:opacity-100 transition-all duration-300 blur-[2px]" />
+
+                    <div className="relative flex items-center bg-slate-950/75 backdrop-blur-md rounded-xl border border-sky-400/30 group-focus-within:border-sky-300 transition-all duration-300 shadow-[inset_0_1px_4px_rgba(0,0,0,0.5)]">
+                      {/* Pulsing AI Sparkle Icon */}
+                      <span className="pl-3 flex items-center justify-center select-none">
+                        <Sparkles className="w-3.5 h-3.5 text-sky-400/70 group-focus-within:text-cyan-300 group-focus-within:scale-110 group-focus-within:drop-shadow-[0_0_8px_rgba(56,189,248,0.8)] transition-all duration-300" />
+                      </span>
+
+                      <input
+                        type="text"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        placeholder="Ask anything about projects or skills..."
+                        className="w-full bg-transparent px-2.5 py-2 sm:py-2.5 text-xs sm:text-sm text-sky-100 placeholder-sky-300/40 focus:outline-none font-mono selection:bg-cyan-500/30 selection:text-white"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Radiant Transmit Button */}
                   <button
                     type="submit"
                     disabled={loading || !input.trim()}
-                    className="bg-gradient-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 disabled:opacity-40 text-slate-950 p-2.5 rounded-xl transition-all active:scale-95 flex-shrink-0 shadow-[0_0_12px_rgba(56,189,248,0.5)] cursor-pointer"
+                    className="relative group p-2 sm:p-2.5 rounded-xl flex items-center justify-center transition-all duration-300 active:scale-90 disabled:opacity-30 disabled:pointer-events-none cursor-pointer overflow-hidden flex-shrink-0"
                     aria-label="Transmit message"
                   >
-                    <Send className="w-4 h-4" />
+                    <span className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600 rounded-xl blur-[3px] group-hover:blur-md opacity-80 group-hover:opacity-100 transition-all duration-300" />
+                    <span className="relative z-10 w-full h-full flex items-center justify-center bg-gradient-to-tr from-cyan-400 via-sky-400 to-indigo-500 text-slate-950 font-bold p-1 rounded-lg shadow-sm">
+                      <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </span>
                   </button>
                 </form>
               </div>
