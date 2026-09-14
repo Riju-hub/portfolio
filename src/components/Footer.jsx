@@ -19,15 +19,16 @@ function Footer() {
   const location = useLocation();
 
   const handleNavigateSection = (id) => {
-    if (location.pathname === '/') {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      navigate('/', { state: { scrollTo: id } });
+  if (location.pathname === '/') {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  } else {
+    // Navigate back to home with the hash
+    navigate(`/#${id}`);
+  }
+};
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
