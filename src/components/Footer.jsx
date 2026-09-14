@@ -22,10 +22,14 @@ function Footer() {
     if (location.pathname === '/') {
       const el = document.getElementById(id);
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
+        // Direct absolute offset scroll: impervious to mobile address-bar shifts
+        const targetPosition = el.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
       }
     } else {
-      // Navigate home with sessionStorage instead of URL hashes or router history state
       sessionStorage.setItem('pendingScrollTarget', id);
       navigate('/');
     }

@@ -11,19 +11,24 @@ function Home() {
   useEffect(() => {
     document.title = "Bhabasindhu | Portfolio";
 
-    // Check if coming from another page with a target
     const targetId = sessionStorage.getItem('pendingScrollTarget');
     if (targetId) {
       sessionStorage.removeItem('pendingScrollTarget');
 
-      const timer = setTimeout(() => {
-        const el = document.getElementById(targetId);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 150);
-
-      return () => clearTimeout(timer);
+      // Use a double requestAnimationFrame to ensure the entire DOM tree is painted
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const el = document.getElementById(targetId);
+          if (el) {
+            const topOffset = el.getBoundingClientRect().top + window.scrollY;
+            // Immediate snap to the section on route arrival prevents mobile touch loops
+            window.scrollTo({
+              top: topOffset,
+              behavior: 'auto'
+            });
+          }
+        });
+      });
     }
   }, []);
 
