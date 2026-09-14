@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { 
   FaGithub, 
   FaLinkedin, 
@@ -14,8 +15,26 @@ import {
 } from 'react-icons/fa';
 
 function Footer() {
-  const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigateSection = (id) => {
+    // If already on the home page, scroll directly
+    if (location.pathname === '/') {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // If on a project page, navigate home with hash and scroll after mount
+      navigate(`/#${id}`);
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 120);
+    }
   };
 
   const scrollToTop = () => {
@@ -45,7 +64,7 @@ function Footer() {
   return (
     <footer className="relative bg-[#08080a] text-white border-t border-white/10 pt-20 pb-10 overflow-hidden font-sans selection:bg-purple-500/30">
       
-      {/* GPU-Accelerated Static Radial Glow Mesh (Zero paint/rasterization overhead) */}
+      {/* Static Radial Glow Mesh */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none transform-gpu">
         <div 
           className="absolute -bottom-32 -left-32 w-[500px] h-[500px]" 
@@ -67,11 +86,9 @@ function Footer() {
           viewport={{ once: true, amount: 0.2 }}
           className="relative mb-16 p-8 sm:p-10 rounded-3xl bg-neutral-900/80 border border-white/10 overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl group transform-gpu"
         >
-          {/* Top Border Glow Accent */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
           
           <div className="text-center md:text-left z-10">
-            {/* Clean Radar Badge */}
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-neutral-950/90 border border-purple-500/30 text-xs font-mono font-medium tracking-wider uppercase mb-3 shadow-inner">
               <div className="relative flex items-center justify-center w-2 h-2">
                 <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400" />
@@ -87,7 +104,7 @@ function Footer() {
           </div>
 
           <button
-            onClick={() => scrollToSection('contact')}
+            onClick={() => handleNavigateSection('contact')}
             className="z-10 shrink-0 inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 font-semibold text-white shadow-xl shadow-purple-600/25 text-sm cursor-pointer group hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
           >
             <span>Start a Conversation</span>
@@ -98,7 +115,7 @@ function Footer() {
         {/* Main Footer Column Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-neutral-800/80">
           
-          {/* Brand Column (Col 1-5) */}
+          {/* Brand Column */}
           <div className="lg:col-span-5 space-y-6 text-center lg:text-left">
             <div>
               <h2 className="text-3xl font-black tracking-tight text-white mb-2">
@@ -109,7 +126,7 @@ function Footer() {
               </p>
             </div>
 
-            {/* Status & Location Pill */}
+            {/* Status & Location */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-300 font-mono">
                 <span className="relative flex h-2 w-2">
@@ -125,7 +142,7 @@ function Footer() {
               </div>
             </div>
 
-            {/* Tech Badges Row */}
+            {/* Tech Badges */}
             <div className="pt-2">
               <span className="block text-xs font-mono uppercase tracking-wider text-neutral-500 mb-2">Core Tech Stack</span>
               <div className="flex flex-wrap justify-center lg:justify-start gap-1.5">
@@ -138,7 +155,7 @@ function Footer() {
             </div>
           </div>
 
-          {/* Navigation Links Column (Col 6-8) */}
+          {/* Quick Navigation Links */}
           <div className="lg:col-span-3 text-center lg:text-left">
             <h4 className="text-xs font-mono uppercase tracking-wider text-purple-400 mb-5">
               Quick Navigation
@@ -147,7 +164,7 @@ function Footer() {
               {navLinks.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() => handleNavigateSection(item.id)}
                   className="text-neutral-400 hover:text-white transition-colors duration-150 text-sm flex items-center justify-center lg:justify-start gap-1.5 group cursor-pointer"
                 >
                   <span className="text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-150 font-mono text-xs">▹</span>
@@ -157,7 +174,7 @@ function Footer() {
             </div>
           </div>
 
-          {/* Socials & Direct Contact Column (Col 9-12) */}
+          {/* Connect Column */}
           <div className="lg:col-span-4 text-center lg:text-left space-y-6">
             <div>
               <h4 className="text-xs font-mono uppercase tracking-wider text-purple-400 mb-4">
@@ -200,7 +217,7 @@ function Footer() {
 
         </div>
 
-        {/* Bottom Bar & Scroll to Top Button */}
+        {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-500">
           <p className="text-center sm:text-left">
             &copy; {new Date().getFullYear()} Bhabasindhu Das. Crafted with precision.

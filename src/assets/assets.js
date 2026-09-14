@@ -59,75 +59,6 @@ export const aboutInfo = [
   }
 ];
 
-// export const skills = [
-//   {
-//     id: 'frontend',
-//     category: 'web',
-//     title: 'Frontend Development',
-//     icon: FaReact,
-//     description: 'Building responsive, high-performance user interfaces with modern React paradigms and component systems.',
-//     tags: ['React', 'JavaScript', 'Tailwind CSS', 'HTML5', 'CSS3', 'Bootstrap', 'Material UI'],
-//     color: 'text-cyan-400',
-//     borderColor: 'hover:border-cyan-500/40',
-//     bgGlow: 'group-hover:bg-cyan-500/10'
-//   },
-//   {
-//     id: 'backend',
-//     category: 'web',
-//     title: 'Backend Engineering',
-//     icon: FaServer,
-//     description: 'Architecting scalable server-side systems, RESTful APIs, and secure authentication flows.',
-//     tags: ['Node.js', 'Express', 'REST API', 'JWT Auth', 'Socket.io', 'MVC Architecture'],
-//     color: 'text-emerald-400',
-//     borderColor: 'hover:border-emerald-500/40',
-//     bgGlow: 'group-hover:bg-emerald-500/10'
-//   },
-//   {
-//     id: 'ai-ml',
-//     category: 'ai',
-//     title: 'AI & Machine Learning',
-//     icon: FaBrain,
-//     description: 'Engineering intelligent models and neural network architectures for predictive tasks.',
-//     tags: ['Machine Learning', 'Deep Learning', 'PyTorch', 'Scikit-Learn', 'Neural Networks'],
-//     color: 'text-purple-400',
-//     borderColor: 'hover:border-purple-500/40',
-//     bgGlow: 'group-hover:bg-purple-500/10'
-//   },
-//   {
-//     id: 'data-science',
-//     category: 'ai',
-//     title: 'Data Science & Analytics',
-//     icon: FaChartBar,
-//     description: 'Extracting data insights, exploratory analysis, and statistical modeling with Python tools.',
-//     tags: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Jupyter', 'Scikit-Learn'],
-//     color: 'text-amber-400',
-//     borderColor: 'hover:border-amber-500/40',
-//     bgGlow: 'group-hover:bg-amber-500/10'
-//   },
-//   {
-//     id: 'database',
-//     category: 'devops',
-//     title: 'Database Systems',
-//     icon: FaDatabase,
-//     description: 'Designing schema models and optimizing database queries for performance and data integrity.',
-//     tags: ['MongoDB', 'MySQL', 'Mongoose ORM', 'CRUD Operations', 'Query Indexing'],
-//     color: 'text-pink-400',
-//     borderColor: 'hover:border-pink-500/40',
-//     bgGlow: 'group-hover:bg-pink-500/10'
-//   },
-//   {
-//     id: 'deployment',
-//     category: 'devops',
-//     title: 'Cloud & Infrastructure',
-//     icon: FaCloud,
-//     description: 'Deploying full-stack applications, managing Git repositories, and configuring cloud environments.',
-//     tags: ['Render', 'Vercel', 'Git', 'GitHub', 'CI/CD Pipelines', 'Environment Config'],
-//     color: 'text-indigo-400',
-//     borderColor: 'hover:border-indigo-500/40',
-//     bgGlow: 'group-hover:bg-indigo-500/10'
-//   }
-// ];
-
 
 export const skills = [
   {
@@ -298,13 +229,10 @@ export const workData = [
         github: "https://github.com/Riju-hub/NovaCommerce",
         liveDemo: "https://nova-commerce-th.vercel.app/"
       }
-      // Future projects at Zaalima can be added here cleanly!
     ]
   }
-  // Future companies and roles can be added here!
 ];
 
-// Flat export helper for single-item lookups (e.g. for ProjectDetails page)
 export const allProjects = workData.flatMap((exp) =>
   exp.projects.map((proj) => ({
     ...proj,
