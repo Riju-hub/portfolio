@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero';
 import About from '../components/About';
 import Skills from '../components/Skills';
@@ -10,30 +10,29 @@ import Education from '../components/Education';
 
 function Home() {
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = "Bhabasindhu | Portfolio";
   }, []);
 
-  // Smooth scroll listener when redirected from a project page
   useEffect(() => {
-    if (location.state?.scrollTo) {
-      const targetId = location.state.scrollTo;
+    const targetId = location.state?.scrollTo;
 
-      // Wipe state immediately so mobile scrolling/refreshing doesn't re-trigger it
-      navigate('/', { replace: true, state: {} });
+    if (targetId) {
+      // Clear the state natively in browser history WITHOUT triggering a React re-render
+      window.history.replaceState({}, document.title, window.location.pathname);
 
+      // Wait briefly for full DOM tree paint
       const timer = setTimeout(() => {
         const element = document.getElementById(targetId);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 150);
+      }, 100);
 
       return () => clearTimeout(timer);
     }
-  }, [location, navigate]);
+  }, []); // Run ONLY once when Home mounts
 
   return ( 
     <div>

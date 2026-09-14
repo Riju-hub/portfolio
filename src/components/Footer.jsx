@@ -20,13 +20,11 @@ function Footer() {
 
   const handleNavigateSection = (id) => {
     if (location.pathname === '/') {
-      // Already on Home: direct smooth scroll
       const element = document.getElementById(id);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      // On Project Details: navigate to Home cleanly without messy URL hashes
       navigate('/', { state: { scrollTo: id } });
     }
   };

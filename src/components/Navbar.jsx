@@ -83,10 +83,8 @@ function Navbar() {
   const scrollToSection = (id) => {
     setShowMenu(false);
     if (location.pathname !== '/') {
-      navigate('/');
-      setTimeout(() => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      // Navigate to home and pass target id in state
+      navigate('/', { state: { scrollTo: id } });
     } else {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     }
