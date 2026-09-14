@@ -81,16 +81,14 @@ function Navbar() {
   }, [showMenu]);
 
   const scrollToSection = (id) => {
-  setShowMenu(false);
-  if (location.pathname !== '/') {
-    navigate(`/#${id}`);
-  } else {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    setShowMenu(false);
+    if (location.pathname !== '/') {
+      sessionStorage.setItem('pendingScrollTarget', id);
+      navigate('/');
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     }
-  }
-};
+  };
 
   return ( 
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-200 font-sans transform-gpu ${
