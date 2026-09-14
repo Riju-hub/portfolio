@@ -25,34 +25,6 @@
   --color-amber: #F97316;    /* Perfect for Data Science/Python */
 }
 
-/* .typewriter {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  width: 0;
-  border-right: 3px solid var(--color-purple);
-  padding-right: 4px;
-  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-purple) 60%, transparent));
-
-  animation:
-    typing 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards,
-    blink-caret 0.75s step-end infinite;
-} */
-
-/* @keyframes typing {
-  from { width: 0; }
-  to { width: var(--type-width); }
-}
-
-@keyframes blink-caret {
-  from, to { border-color: transparent; }
-  50% { border-color: var(--color-pink); }
-} */
-
-html {
-  scroll-behavior: smooth;
-}
-
 section {
   scroll-margin-top: 80px; /* adjust to navbar height */
 }
@@ -60,4 +32,23 @@ section {
   100% {
     left: 100%;
   }
+}
+
+html {
+  scroll-behavior: smooth;
+  overscroll-behavior-y: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+/* 3. Ensure section scroll-margin doesn't interfere during manual touch */
+section {
+  scroll-margin-top: 80px;
+  overflow-anchor: none;
 }
