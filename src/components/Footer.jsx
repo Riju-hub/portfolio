@@ -19,21 +19,15 @@ function Footer() {
   const location = useLocation();
 
   const handleNavigateSection = (id) => {
-    // If already on the home page, scroll directly
     if (location.pathname === '/') {
+      // Already on Home: direct smooth scroll
       const element = document.getElementById(id);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      // If on a project page, navigate home with hash and scroll after mount
-      navigate(`/#${id}`);
-      setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 120);
+      // On Project Details: navigate to Home cleanly without messy URL hashes
+      navigate('/', { state: { scrollTo: id } });
     }
   };
 
