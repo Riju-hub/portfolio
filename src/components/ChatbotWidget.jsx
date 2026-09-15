@@ -1,6 +1,20 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, User, Sparkles, Code2, FolderGit2, Briefcase, Mail, Cpu, ChevronRight } from 'lucide-react';
+import {
+  X,
+  Send,
+  User,
+  Sparkles,
+  Code2,
+  FolderGit2,
+  Briefcase,
+  Mail,
+  Cpu,
+  ChevronRight,
+  Mic,
+  MicOff,
+  PhoneOff
+} from 'lucide-react';
 
 const AiMachineLogo = ({ className }) => (
   <img
@@ -8,6 +22,32 @@ const AiMachineLogo = ({ className }) => (
     alt="Bhabasindhu AI"
     className={`rounded-full object-cover border border-sky-400/50 shadow-[0_0_10px_rgba(56,189,248,0.4)] ${className}`}
   />
+);
+
+// ChatGPT Voice Waveform Pill Icon
+const VoicePillIcon = ({ isActive, className = '' }) => (
+  <div className={`flex items-center justify-center gap-[2.5px] h-4 ${className}`}>
+    <span
+      className={`w-[2.5px] bg-white rounded-full transition-all duration-300 ${
+        isActive ? 'h-3 animate-[pulse_0.7s_infinite]' : 'h-2'
+      }`}
+    />
+    <span
+      className={`w-[2.5px] bg-white rounded-full transition-all duration-300 ${
+        isActive ? 'h-4 animate-[pulse_1s_infinite]' : 'h-3.5'
+      }`}
+    />
+    <span
+      className={`w-[2.5px] bg-white rounded-full transition-all duration-300 ${
+        isActive ? 'h-5 animate-[pulse_0.5s_infinite]' : 'h-2.5'
+      }`}
+    />
+    <span
+      className={`w-[2.5px] bg-white rounded-full transition-all duration-300 ${
+        isActive ? 'h-3 animate-[pulse_0.9s_infinite]' : 'h-2'
+      }`}
+    />
+  </div>
 );
 
 const FormattedMessage = ({ content }) => {
@@ -130,16 +170,27 @@ export default function ChatbotWidget() {
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const messagesEndRef = useRef(null);
 
-  // 1. Only listen to viewport resize when the chatbot is actively OPEN
+  // --- Voice Calling States ---
+  const [isLiveCall, setIsLiveCall] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [callStatus, setCallStatus] = useState('');
+
+  const messagesEndRef = useRef(null);
+  const recognitionRef = useRef(null);
+  const isLiveCallRef = useRef(false);
+
+  useEffect(() => {
+    isLiveCallRef.current = isLiveCall;
+  }, [isLiveCall]);
+
   useEffect(() => {
     if (!isOpen || !window.visualViewport) return;
 
     const handleResize = () => {
       if (window.innerWidth < 640) {
         setViewportHeight(`${window.visualViewport.height}px`);
-        // Removed window.scrollTo(0, 0)
       } else {
         setViewportHeight('min(550px, calc(100dvh - 5.5rem))');
       }
@@ -153,7 +204,6 @@ export default function ChatbotWidget() {
     };
   }, [isOpen]);
 
-  // 2. Safely lock body scroll when open on mobile without position: 'fixed'
   useEffect(() => {
     if (isOpen && window.innerWidth < 640) {
       document.body.style.overflow = 'hidden';
@@ -179,50 +229,197 @@ export default function ChatbotWidget() {
     if (isOpen) scrollToBottom();
   }, [messages, isOpen]);
 
+  // Natural Speech Output
+  const speakText = useCallback((text, onFinish) => {
+    if (!window.speechSynthesis) {
+      if (onFinish) onFinish();
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const cleanToSpeak = text
+      .replace(/[*#`_~•\-]/g, '')
+      .replace(/\[SUGGESTIONS:.*?\]/gi, '')
+      .trim();
+
+    if (!cleanToSpeak) {
+      if (onFinish) onFinish();
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(cleanToSpeak);
+    utterance.rate = 1.05;
+    utterance.pitch = 1.0;
+
+    const voices = window.speechSynthesis.getVoices();
+    const naturalVoice = voices.find(
+      (v) =>
+        v.lang.includes('en') &&
+        (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha'))
+    );
+    if (naturalVoice) utterance.voice = naturalVoice;
+
+    utterance.onstart = () => {
+      setIsSpeaking(true);
+      setCallStatus('Speaking...');
+    };
+
+    utterance.onend = () => {
+      setIsSpeaking(false);
+      if (onFinish) onFinish();
+    };
+
+    utterance.onerror = () => {
+      setIsSpeaking(false);
+      if (onFinish) onFinish();
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }, []);
+
+  // API Call Handler
+  const handleSendMessage = useCallback(
+    async (queryText, isVoice = false) => {
+      const userMessage = (queryText || input).trim();
+      if (!userMessage || loading) return;
+
+      setInput('');
+      setMessages((prev) => [...prev, { role: 'user', content: userMessage }]);
+      setLoading(true);
+
+      if (isVoice) {
+        setCallStatus('Thinking...');
+      }
+
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: userMessage, isVoiceMode: isVoice })
+        });
+
+        const data = await response.json();
+        const { cleanText, suggestions } = parseAiResponse(data.reply || '');
+
+        setMessages((prev) => [...prev, { role: 'assistant', content: cleanText }]);
+
+        if (suggestions && suggestions.length > 0) {
+          setCurrentSuggestions(suggestions);
+        }
+
+        if (isVoice) {
+          speakText(cleanText, () => {
+            if (isLiveCallRef.current) {
+              startListeningSession();
+            }
+          });
+        }
+      } catch (err) {
+        const fallbackText =
+          '• Connection timed out.\n• Direct queries can be submitted via the **Contact Form**.';
+        setMessages((prev) => [...prev, { role: 'assistant', content: fallbackText }]);
+
+        if (isVoice) {
+          speakText('Connection timed out. Feel free to use the contact form.', () => {
+            if (isLiveCallRef.current) startListeningSession();
+          });
+        }
+      } finally {
+        setLoading(false);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [input, loading, speakText]
+  );
+
+  // Microphone Speech Recognition
+  const startListeningSession = useCallback(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert('Voice calling requires Google Chrome, Edge, or Safari.');
+      return;
+    }
+
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.abort();
+      } catch (e) {}
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onstart = () => {
+      setIsListening(true);
+      setCallStatus('Listening...');
+    };
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setIsListening(false);
+      if (isLiveCallRef.current) {
+        handleSendMessage(transcript, true);
+      } else {
+        setInput(transcript);
+      }
+    };
+
+    recognition.onerror = () => {
+      setIsListening(false);
+      if (isLiveCallRef.current) {
+        setCallStatus('Tap mic to speak');
+      }
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognitionRef.current = recognition;
+    recognition.start();
+  }, [handleSendMessage]);
+
+  const stopListeningSession = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    }
+  };
+
+  // Live Call Controls
+  const handleStartLiveCall = () => {
+    setIsLiveCall(true);
+    isLiveCallRef.current = true;
+    const greeting = "Hey there! I'm Bhabasindhu's AI assistant. Ask me anything about his projects, skills, or experience.";
+    speakText(greeting, () => {
+      if (isLiveCallRef.current) {
+        startListeningSession();
+      }
+    });
+  };
+
+  const handleEndLiveCall = () => {
+    setIsLiveCall(false);
+    isLiveCallRef.current = false;
+    stopListeningSession();
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+    setIsSpeaking(false);
+    setCallStatus('');
+  };
+
   const handleOpenChat = () => {
     setShowPopup(false);
     setIsOpen(true);
   };
 
-  const handleSendMessage = async (queryText) => {
-    const userMessage = (queryText || input).trim();
-    if (!userMessage || loading) return;
-
-    setInput('');
-    setMessages((prev) => [...prev, { role: 'user', content: userMessage }]);
-    setLoading(true);
-
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage })
-      });
-
-      const data = await response.json();
-      const { cleanText, suggestions } = parseAiResponse(data.reply || '');
-
-      setMessages((prev) => [...prev, { role: 'assistant', content: cleanText }]);
-
-      if (suggestions && suggestions.length > 0) {
-        setCurrentSuggestions(suggestions);
-      }
-    } catch (err) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: 'assistant',
-          content: '• Connection timed out.\n• Direct queries can be submitted via the **Contact Form**.'
-        }
-      ]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSendMessage(input);
+    handleSendMessage(input, false);
   };
 
   return (
@@ -334,7 +531,7 @@ export default function ChatbotWidget() {
         </div>
       </div>
 
-      {/* Modern Screen-Bounded Chat Interface */}
+      {/* Main Chat Window */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -347,7 +544,7 @@ export default function ChatbotWidget() {
           >
             <div className="bonfire-shadow-layer w-full h-full bg-slate-950/95 sm:bg-slate-950/30 border-0 sm:border border-sky-400/30 text-sky-100 rounded-none sm:rounded-3xl flex flex-col overflow-hidden backdrop-blur-2xl relative overscroll-contain">
               
-              {/* Animated Background Watermark */}
+              {/* Background Watermark */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 flex items-center justify-center">
                 <div className="animate-watermark-smooth flex flex-col gap-6 whitespace-nowrap opacity-15 sm:opacity-20 text-sky-300">
                   {Array.from({ length: 14 }).map((_, rowIndex) => (
@@ -368,7 +565,7 @@ export default function ChatbotWidget() {
                 </div>
               </div>
 
-              {/* Fixed Pinned Header */}
+              {/* Header with ChatGPT Voice Pill Trigger */}
               <div className="relative z-20 bg-slate-900/90 sm:bg-slate-900/30 px-4 py-3 sm:py-3.5 flex items-center justify-between border-b border-sky-500/20 backdrop-blur-md flex-shrink-0">
                 <div className="flex items-center space-x-2.5 sm:space-x-3">
                   <div className="p-0.5 rounded-full bg-sky-950/60 border border-sky-500/40">
@@ -386,20 +583,43 @@ export default function ChatbotWidget() {
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
                         <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-sky-400 shadow-[0_0_6px_#38bdf8]" />
                       </span>
-                      <span className="text-[11px] text-sky-300/80 font-mono">NEURAL ACTIVE</span>
+                      <span className="text-[11px] text-sky-300/80 font-mono">
+                        {isLiveCall ? 'VOICE CONNECTED' : 'NEURAL ACTIVE'}
+                      </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Close Button */}
-                <button
-                  type="button"
-                  onClick={() => setIsOpen(false)}
-                  className="relative group p-1.5 rounded-xl bg-gradient-to-tr from-pink-500/20 via-rose-500/25 to-fuchsia-500/20 hover:from-pink-500/35 hover:to-rose-500/40 border border-rose-400/40 hover:border-rose-400 text-rose-300 hover:text-rose-100 transition-all duration-300 active:scale-90 shadow-[0_0_12px_rgba(244,63,94,0.3)] hover:shadow-[0_0_16px_rgba(244,63,94,0.5)] cursor-pointer"
-                  aria-label="Close chat"
-                >
-                  <X className="w-5 h-5 transition-transform duration-300 group-hover:rotate-90 text-rose-300 group-hover:text-white" />
-                </button>
+                {/* Header Action Buttons */}
+                <div className="flex items-center space-x-2">
+                  <button
+                    type="button"
+                    onClick={isLiveCall ? handleEndLiveCall : handleStartLiveCall}
+                    title={isLiveCall ? 'End Call' : 'Start Voice Mode'}
+                    className={`group relative p-1.5 px-2.5 rounded-full flex items-center gap-1.5 transition-all duration-300 active:scale-95 cursor-pointer ${
+                      isLiveCall
+                        ? 'bg-rose-500/20 border border-rose-400/60 text-rose-300 shadow-[0_0_12px_rgba(244,63,94,0.4)]'
+                        : 'bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 text-white shadow-[0_0_12px_rgba(244,63,94,0.35)]'
+                    }`}
+                  >
+                    <VoicePillIcon isActive={isLiveCall} />
+                    <span className="text-[11px] font-mono font-medium tracking-tight">
+                      {isLiveCall ? 'End' : 'Voice'}
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (isLiveCall) handleEndLiveCall();
+                      setIsOpen(false);
+                    }}
+                    className="relative group p-1.5 rounded-xl bg-gradient-to-tr from-pink-500/20 via-rose-500/25 to-fuchsia-500/20 hover:from-pink-500/35 hover:to-rose-500/40 border border-rose-400/40 hover:border-rose-400 text-rose-300 hover:text-rose-100 transition-all duration-300 active:scale-90 shadow-[0_0_12px_rgba(244,63,94,0.3)] hover:shadow-[0_0_16px_rgba(244,63,94,0.5)] cursor-pointer"
+                    aria-label="Close chat"
+                  >
+                    <X className="w-5 h-5 transition-transform duration-300 group-hover:rotate-90 text-rose-300 group-hover:text-white" />
+                  </button>
+                </div>
               </div>
 
               {/* Scrollable Message Feed */}
@@ -454,7 +674,7 @@ export default function ChatbotWidget() {
                     <button
                       key={idx}
                       type="button"
-                      onClick={() => handleSendMessage(suggestion)}
+                      onClick={() => handleSendMessage(suggestion, false)}
                       disabled={loading}
                       className="group flex items-center gap-1.5 text-[12px] sm:text-[11.5px] font-medium whitespace-nowrap px-3 py-1.5 rounded-xl bg-sky-950/60 sm:bg-sky-950/30 hover:bg-sky-900/60 border border-sky-400/30 hover:border-sky-400/60 text-slate-100 hover:text-white transition-all active:scale-95 disabled:opacity-40 cursor-pointer shadow-[0_2px_8px_rgba(14,165,233,0.1)] flex-shrink-0"
                     >
@@ -467,7 +687,7 @@ export default function ChatbotWidget() {
                 })}
               </div>
 
-              {/* Pinned Input Form with Disabled Chrome Autofill */}
+              {/* Pinned Input Form */}
               <form
                 onSubmit={handleSubmit}
                 autoComplete="off"
@@ -478,7 +698,7 @@ export default function ChatbotWidget() {
 
                   <div className="relative flex items-center bg-slate-950/90 sm:bg-slate-950/75 backdrop-blur-md rounded-xl border border-sky-400/30 group-focus-within:border-sky-300 transition-all duration-300 shadow-[inset_0_1px_4px_rgba(0,0,0,0.5)]">
                     <span className="pl-3.5 flex items-center justify-center select-none">
-                      <Sparkles className="w-4 h-4 text-sky-400/70 group-focus-within:text-cyan-300 group-focus-within:scale-110 group-focus-within:drop-shadow-[0_0_8px_rgba(56,189,248,0.8)] transition-all duration-300" />
+                      <Sparkles className="w-4 h-4 text-sky-400/70 group-focus-within:text-cyan-300 group-focus-within:scale-110 transition-all duration-300" />
                     </span>
 
                     <input
@@ -491,9 +711,33 @@ export default function ChatbotWidget() {
                       spellCheck={false}
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
-                      placeholder="Ask about projects, stack..."
-                      className="w-full bg-transparent px-3 py-2.5 sm:py-2.5 text-[16px] sm:text-sm text-sky-100 placeholder-sky-300/40 focus:outline-none font-mono selection:bg-cyan-500/30 selection:text-white"
+                      placeholder={isListening ? 'Listening...' : 'Ask about projects, stack...'}
+                      className="w-full bg-transparent px-3 py-2.5 sm:py-2.5 text-[16px] sm:text-sm text-sky-100 placeholder-sky-300/40 focus:outline-none font-mono"
                     />
+
+                    {/* Quick Text-Dictation Mic Button */}
+                    <button
+                      type="button"
+                      onClick={isListening ? stopListeningSession : startListeningSession}
+                      className={`mr-1.5 p-1.5 rounded-lg border transition-all ${
+                        isListening
+                          ? 'bg-rose-500/20 border-rose-400 text-rose-300 animate-pulse shadow-[0_0_10px_rgba(244,63,94,0.5)]'
+                          : 'bg-sky-950/50 border-sky-400/30 text-sky-300 hover:text-white hover:border-sky-300'
+                      }`}
+                      title={isListening ? 'Stop listening' : 'Dictate with Voice'}
+                    >
+                      {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+                    </button>
+
+                    {/* Pink ChatGPT-Style Waveform Button */}
+                    <button
+                      type="button"
+                      onClick={handleStartLiveCall}
+                      className="mr-2 w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 flex items-center justify-center shadow-[0_0_10px_rgba(244,63,94,0.4)] transition-transform hover:scale-105 active:scale-95 cursor-pointer flex-shrink-0"
+                      title="Start ChatGPT Voice Mode"
+                    >
+                      <VoicePillIcon isActive={false} />
+                    </button>
                   </div>
                 </div>
 
@@ -509,6 +753,128 @@ export default function ChatbotWidget() {
                   </span>
                 </button>
               </form>
+
+              {/* Full-Screen ChatGPT Voice Mode Overlay */}
+              <AnimatePresence>
+                {isLiveCall && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute inset-0 z-50 bg-slate-950/95 backdrop-blur-3xl flex flex-col items-center justify-between p-6 text-center"
+                  >
+                    {/* Top Status */}
+                    <div className="pt-2 flex flex-col items-center">
+                      <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-400/30 text-pink-300 text-xs font-mono">
+                        <span
+                          className={`w-2 h-2 rounded-full ${
+                            isSpeaking
+                              ? 'bg-emerald-400 animate-ping'
+                              : isListening
+                              ? 'bg-pink-400 animate-pulse'
+                              : 'bg-sky-400'
+                          }`}
+                        />
+                        <span>VOICE MODE</span>
+                      </div>
+                      <h3 className="mt-3 text-lg font-bold text-sky-100 tracking-wide">
+                        Bhabasindhu AI
+                      </h3>
+                      <p className="text-xs text-sky-300/70 font-mono mt-0.5">
+                        {callStatus || 'Listening...'}
+                      </p>
+                    </div>
+
+                    {/* ChatGPT Liquid Orb / Waveform Graphic */}
+                    <div className="relative flex items-center justify-center my-auto">
+                      <div
+                        className={`absolute w-48 h-48 rounded-full blur-3xl transition-all duration-700 ${
+                          isSpeaking
+                            ? 'bg-gradient-to-r from-emerald-500/30 via-teal-500/30 to-sky-500/30 scale-125 opacity-100'
+                            : isListening
+                            ? 'bg-gradient-to-r from-pink-500/30 via-rose-500/30 to-purple-500/30 scale-110 opacity-80 animate-pulse'
+                            : 'bg-sky-500/20 scale-95 opacity-50'
+                        }`}
+                      />
+
+                      <div
+                        className={`relative w-28 h-28 sm:w-32 sm:h-32 rounded-full flex items-center justify-center transition-all duration-500 shadow-2xl ${
+                          isSpeaking
+                            ? 'bg-gradient-to-tr from-teal-400 via-sky-500 to-indigo-500 shadow-[0_0_35px_rgba(20,184,166,0.6)] scale-105'
+                            : isListening
+                            ? 'bg-gradient-to-tr from-rose-500 via-pink-500 to-indigo-600 shadow-[0_0_35px_rgba(244,63,94,0.6)] scale-100'
+                            : 'bg-slate-900 border border-sky-400/40 shadow-[0_0_20px_rgba(56,189,248,0.3)]'
+                        }`}
+                      >
+                        <div className="flex items-center gap-1.5 h-10">
+                          <span
+                            className={`w-1.5 bg-white/90 rounded-full transition-all duration-200 ${
+                              isSpeaking
+                                ? 'h-8 animate-[pulse_0.4s_infinite]'
+                                : isListening
+                                ? 'h-6 animate-[pulse_0.8s_infinite]'
+                                : 'h-2'
+                            }`}
+                          />
+                          <span
+                            className={`w-1.5 bg-white/90 rounded-full transition-all duration-200 ${
+                              isSpeaking
+                                ? 'h-10 animate-[pulse_0.6s_infinite]'
+                                : isListening
+                                ? 'h-8 animate-[pulse_0.5s_infinite]'
+                                : 'h-3'
+                            }`}
+                          />
+                          <span
+                            className={`w-1.5 bg-white/90 rounded-full transition-all duration-200 ${
+                              isSpeaking
+                                ? 'h-6 animate-[pulse_0.3s_infinite]'
+                                : isListening
+                                ? 'h-10 animate-[pulse_0.7s_infinite]'
+                                : 'h-2'
+                            }`}
+                          />
+                          <span
+                            className={`w-1.5 bg-white/90 rounded-full transition-all duration-200 ${
+                              isSpeaking
+                                ? 'h-9 animate-[pulse_0.5s_infinite]'
+                                : isListening
+                                ? 'h-5 animate-[pulse_0.6s_infinite]'
+                                : 'h-2.5'
+                            }`}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bottom Control Dock */}
+                    <div className="w-full flex items-center justify-center gap-5 pb-4">
+                      <button
+                        type="button"
+                        onClick={isListening ? stopListeningSession : startListeningSession}
+                        className={`p-4 rounded-full border transition-all duration-300 active:scale-95 cursor-pointer ${
+                          isListening
+                            ? 'bg-sky-500/20 border-sky-400 text-sky-200 shadow-[0_0_16px_rgba(56,189,248,0.4)]'
+                            : 'bg-slate-900 border-slate-700 text-slate-400 hover:text-white'
+                        }`}
+                        title={isListening ? 'Mute' : 'Unmute'}
+                      >
+                        {isListening ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5 text-rose-400" />}
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={handleEndLiveCall}
+                        className="p-4 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white transition-all duration-300 active:scale-95 cursor-pointer shadow-lg"
+                        title="Close Voice Mode"
+                      >
+                        <X className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
             </div>
           </motion.div>
