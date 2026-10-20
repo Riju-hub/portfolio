@@ -28,7 +28,7 @@ const NAV_ITEMS = [
   { id: 'contact', label: 'Contact', icon: FaEnvelope },
 ];
 
-const RESUME_PDF_URL = "https://docs.google.com/document/d/1rsi35OZRNh_WH07O2zVm7eYv5IgGa0EgCw9-LbESd3Q/edit?usp=sharing";
+const RESUME_PDF_URL = "https://drive.google.com/file/d/1ubTh4SJ3czv6y6YpKBxOkWynZtLG3wwG/view?usp=sharing";
 
 function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
