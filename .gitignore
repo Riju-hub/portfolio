@@ -28,3 +28,46 @@ dist-ssr
 .env.local
 .env.*
 .vercel
+
+
+# portfolio/
+# ├── .vercel
+# ├── api/
+# │   ├── chat.js
+# │   ├── portfolioData.js
+# │   └── session.js
+# ├── public/
+# │   ├── chatbot_image.jpg
+# │   └── image.png
+# ├── src/
+# │   ├── assets/                        
+# │   │   ├── assets.js
+# │   │   └── multiple_projects_images     
+# │   ├── components/
+# │   │   ├── About.jsx
+# │   │   ├── hatbotWidget.jsx
+# │   │   ├── Contact.jsx
+# │   │   ├── Education.jsx
+# │   │   ├── Footer.jsx
+# │   │   ├── Hero.jsx
+# │   │   ├── Navbar.jsx
+# │   │   ├── NotFound.jsx
+# │   │   ├── ProjectCard.jsx
+# │   │   ├── Projects.jsx
+# │   │   ├── Skills.jsx
+# │   │   └── Work.jsx
+# │   ├── pages/                       
+# │   │   ├── Home.jsx            
+# │   │   └── ProjectDetails.jsx          
+# │   ├── App.css
+# │   ├── App.jsx
+# │   ├── index.css
+# │   └── main.jsx
+# ├── .env.example                    
+# ├── .gitignore
+# ├── eslint.config.js    
+# ├── package-lock.json             
+# ├── package.json
+# ├── index.html
+# ├── vite.config.js
+# └── README.md                      
