@@ -238,7 +238,7 @@ export const workData = [
     certificate: {
       type: "offer_letter",
       title: "Offer Letter",
-      link: "https://drive.google.com/file/d/1YnQtW_-Q26BxAsDhMQPyhwzdUNW6nPx2/view?usp=sharing"
+      image: "/maincrafts_offer_letter.jpeg" // saved in public/
     },
     description:
       "Developing predictive machine learning pipelines and engineering Generative AI applications leveraging Retrieval-Augmented Generation (RAG) and high-performance API backends.",
@@ -282,7 +282,7 @@ export const workData = [
     certificate: {
       type: "completion",
       title: "Completion Certificate",
-      link: "https://drive.google.com/file/d/1RSxjabm5VQnS6Ixj6zMsIXfVIm6qcxKa/view?usp=sharing"
+      image: "/zaalima_internship.jpeg" // saved in public/
     },
     description:
       "Engineered full-stack solutions and contributed to core client applications using React, Node.js, Express, MongoDB, and integrated AI services.",
@@ -521,5 +521,44 @@ export const ProjectDetails = [
       "Data visualization for customer cohort behavior"
     ],
     architecture: "Python analytics pipeline leveraging Scikit-learn for clustering and Seaborn/Matplotlib for cohort visualizations."
+  }
+];
+
+export const certificationData = [
+  {
+    id: "samsung-ai",
+    title: "Artificial Intelligence Course",
+    issuer: "Samsung Innovation Campus & ESSCI",
+    issueDate: "Sep 2025 - Nov 2025",
+    credentialId: "SIC11836",
+    image: "/samsung_certificate.jpeg",
+    skills: ["Artificial Intelligence", "Machine Learning", "Deep Learning", "Python"],
+    gradient: "from-cyan-500/20 via-blue-500/10 to-transparent",
+    accentColor: "text-cyan-400",
+    borderAccent: "group-hover:border-cyan-500/50"
+  },
+  {
+    id: "zaalima-web-dev",
+    title: "Web Development Training",
+    issuer: "Zaalima Development & intelleQA",
+    issueDate: "Jul 2026 - Oct 2026",
+    credentialId: "6d60d6a824a93d28a4e",
+    image: "/zaalima_training.jpeg",
+    skills: ["Full Stack Web", "Frontend & Backend", "System Architecture"],
+    gradient: "from-purple-500/20 via-pink-500/10 to-transparent",
+    accentColor: "text-purple-400",
+    borderAccent: "group-hover:border-purple-500/50"
+  },
+  {
+    id: "be10x-ai-tools",
+    title: "AI Tools & ChatGPT Workshop",
+    issuer: "be10x",
+    issueDate: "June 2026",
+    credentialId: "Verified",
+    image: "/be10x.jpeg",
+    skills: ["Generative AI", "AI Automation", "Data Analysis", "Prompt Engineering"],
+    gradient: "from-pink-500/20 via-rose-500/10 to-transparent",
+    accentColor: "text-pink-400",
+    borderAccent: "group-hover:border-pink-500/50"
   }
 ];

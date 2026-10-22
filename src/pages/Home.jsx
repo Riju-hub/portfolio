@@ -6,6 +6,7 @@ import Projects from '../components/Projects';
 import Work from '../components/Work';
 import Contact from '../components/Contact';
 import Education from '../components/Education';
+import Certifications from '../components/Certifications';
 
 function Home() {
   useEffect(() => {
@@ -40,6 +41,7 @@ function Home() {
       <section id="projects"><Projects /></section>
       <section id="experience"><Work /></section>
       <section id="education"><Education /></section>
+      <section id="certifications"><Certifications /></section>
       <section id="contact"><Contact /></section>
     </div>
   );

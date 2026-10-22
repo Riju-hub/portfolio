@@ -13,7 +13,8 @@ import {
   FaGithub, 
   FaLinkedin, 
   FaTwitter,
-  FaExternalLinkAlt
+  FaExternalLinkAlt,
+  FaCertificate
 } from 'react-icons/fa';
 import { FaXmark } from 'react-icons/fa6';
 import { HiSparkles } from 'react-icons/hi2';
@@ -25,10 +26,11 @@ const NAV_ITEMS = [
   { id: 'projects', label: 'Projects', icon: FaLaptopCode },
   { id: 'experience', label: 'Experience', icon: FaBriefcase },
   { id: 'education', label: 'Education', icon: FaGraduationCap },
+  { id: 'certifications', label: 'Certifications', icon: FaCertificate },
   { id: 'contact', label: 'Contact', icon: FaEnvelope },
 ];
 
-const RESUME_PDF_URL = "https://drive.google.com/file/d/1ubTh4SJ3czv6y6YpKBxOkWynZtLG3wwG/view?usp=sharing";
+const RESUME_PDF_URL = "https://drive.google.com/file/d/1D8Ay3HyiDExBu8vf52fThejEGpnEwKWJ/view?usp=sharing";
 
 function Navbar() {
   const [showMenu, setShowMenu] = useState(false);

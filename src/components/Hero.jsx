@@ -324,7 +324,7 @@ function Hero() {
     { icon: FaInstagram, url: 'https://www.instagram.com/bhabasindhudas621/', label: 'Instagram', color: 'hover:text-pink-400 hover:border-pink-500/50 hover:bg-pink-500/10' },
   ];
 
-  const resumeUrl = "https://drive.google.com/file/d/1ubTh4SJ3czv6y6YpKBxOkWynZtLG3wwG/view?usp=sharing";
+  const resumeUrl = "https://drive.google.com/file/d/1D8Ay3HyiDExBu8vf52fThejEGpnEwKWJ/view?usp=sharing";
 
   return ( 
     <section
@@ -471,9 +471,9 @@ function Hero() {
             <motion.div 
               animate={{ y: [-6, 6] }}
               transition={{ duration: 3.5, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-              className="absolute -top-3 -right-4 sm:-top-5 sm:-right-6 z-20 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-neutral-900/95 border border-pink-500/30 shadow-xl flex items-center gap-2.5 text-xs sm:text-sm text-pink-300 font-medium will-change-transform transform-gpu pointer-events-none"
+              className="absolute -top-3 -right-4 sm:-top-5 sm:-right-6 z-20 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-neutral-900/95 border border-blue-500/30 shadow-xl flex items-center gap-2.5 text-xs sm:text-sm text-blue-300 font-medium will-change-transform transform-gpu pointer-events-none"
             >
-              <HiSparkles className="text-pink-400 text-base sm:text-lg flex-shrink-0" />
+              <HiSparkles className="text-blue-400 text-base sm:text-lg flex-shrink-0" />
               <span className="whitespace-nowrap">AI &amp; Machine Learning</span>
             </motion.div>
 
@@ -481,9 +481,9 @@ function Hero() {
             <motion.div 
               animate={{ y: [6, -6] }}
               transition={{ duration: 3.5, repeat: Infinity, repeatType: "reverse", ease: "easeInOut", delay: 0.2 }}
-              className="absolute -bottom-3 -left-4 sm:-bottom-5 sm:-left-6 z-20 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-neutral-900/95 border border-purple-500/30 shadow-xl flex items-center gap-2.5 text-xs sm:text-sm text-purple-300 font-medium will-change-transform transform-gpu pointer-events-none"
+              className="absolute -bottom-3 -left-4 sm:-bottom-5 sm:-left-6 z-20 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-neutral-900/95 border border-pink-500/30 shadow-xl flex items-center gap-2.5 text-xs sm:text-sm text-pink-300 font-medium will-change-transform transform-gpu pointer-events-none"
             >
-              <HiCodeBracketSquare className="text-purple-400 text-base sm:text-lg flex-shrink-0" />
+              <HiCodeBracketSquare className="text-pink-400 text-base sm:text-lg flex-shrink-0" />
               <span className="whitespace-nowrap">Full Stack Developer</span>
             </motion.div>
 

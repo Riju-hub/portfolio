@@ -87,7 +87,7 @@ const ProjectCard = ({ id, title, description, image, tech = [], demo, code }) =
                 rel="noopener noreferrer" 
                 className="flex-1 flex items-center justify-center gap-2 text-center py-2.5 px-3.5 bg-neutral-950 border border-neutral-800 hover:border-purple-500/40 text-neutral-200 hover:text-purple-300 rounded-xl font-semibold transition-all duration-200 text-xs sm:text-sm"
               >
-                <FaGithub size={13} /> Code
+                <FaGithub size={13} /> GitHub
               </a>
             ) : (
               <span className="flex-1 flex items-center justify-center gap-2 text-center py-2.5 px-3.5 bg-neutral-950/60 border border-neutral-800/80 rounded-xl font-medium text-neutral-600 text-xs sm:text-sm cursor-not-allowed">
@@ -97,7 +97,7 @@ const ProjectCard = ({ id, title, description, image, tech = [], demo, code }) =
           </div>
 
           {/* Details Link Indicator */}
-          <div className="mt-4 pt-3 flex items-center justify-end text-[11px] font-mono text-purple-400">
+          <div className="mt-4 pt-3 flex items-center justify-end text-[11px] font-mono text-white-400">
             <span className="flex items-center gap-1.5 group-hover:translate-x-1 transition-transform duration-200">
               Full Breakdown <FaArrowRight size={10} />
             </span>
