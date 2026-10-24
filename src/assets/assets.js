@@ -17,80 +17,83 @@ export const assets = {
 
 export const aboutInfo = [
   {
-    id: 'problem-solver',
+    id: 'system-architecture',
     icon: FaLightbulb,
-    title: 'Problem Solver',
-    subtitle: 'Algorithmic & Logical Thinking',
-    description: 'Deconstructing complex engineering challenges into clean, scalable software architectures and functional machine learning solutions.',
-    color: 'text-amber-400',
-    borderColor: 'hover:border-amber-500/40',
-    bgGlow: 'group-hover:bg-amber-500/10',
-    badge: 'Core Skill'
+    title: 'System Architecture',
+    subtitle: 'High Throughput & Distributed Logic',
+    description: 'Deconstructing complex engineering challenges into decoupled microservices, clean REST interfaces, and low-latency databases.',
+    badge: 'Core Competency',
+    accentColor: 'text-cyan-400',
+    borderGradient: 'from-cyan-500/40 via-blue-500/20 to-transparent',
+    glowColor: 'bg-cyan-500/15'
   },
   {
     id: 'full-stack',
     icon: FaCode,
-    title: 'Full-Stack Developer',
-    subtitle: 'MERN & Modern Web Ecosystem',
-    description: 'Crafting performant web platforms with React, Node.js, Express, and MongoDB with clean component isolation.',
-    color: 'text-pink-400',
-    borderColor: 'hover:border-pink-500/40',
-    bgGlow: 'group-hover:bg-pink-500/10',
-    badge: 'Production Ready'
+    title: 'Full-Stack Platforms',
+    subtitle: 'MERN & Production SaaS',
+    description: 'Architecting scalable applications with React, Node.js, Express, and MongoDB featuring multi-tenant data boundaries and RBAC.',
+    badge: 'Production Grade',
+    accentColor: 'text-purple-400',
+    borderGradient: 'from-purple-500/40 via-pink-500/20 to-transparent',
+    glowColor: 'bg-purple-500/15'
   },
   {
-    id: 'ai-ml',
+    id: 'applied-ai',
     icon: FaBrain,
-    title: 'AI & ML Engineer',
-    subtitle: 'Deep Learning & Intelligent Systems',
-    description: 'Exploring neural networks, optimization techniques, and intelligent data processing to build smart applications.',
-    color: 'text-blue-400',
-    borderColor: 'hover:border-purple-500/40',
-    bgGlow: 'group-hover:bg-purple-500/10',
-    badge: 'Specialization'
+    title: 'Applied AI & RAG',
+    subtitle: 'LLMs & Neural Systems',
+    description: 'Engineering semantic search engines, vector retrieval pipelines, and transformer workflows using Google Gemini and FastAPI.',
+    badge: 'Specialization',
+    accentColor: 'text-pink-400',
+    borderGradient: 'from-pink-500/40 via-rose-500/20 to-transparent',
+    glowColor: 'bg-pink-500/15'
   },
   {
-    id: 'data-science',
+    id: 'predictive-analytics',
     icon: FaChartLine,
-    title: 'Data Analytics',
-    subtitle: 'Insights & Mathematical Modeling',
-    description: 'Extracting actionable insights, performing exploratory data analysis, and building predictive models using Python tools.',
-    color: 'text-emerald-400',
-    borderColor: 'hover:border-emerald-500/40',
-    bgGlow: 'group-hover:bg-emerald-500/10',
-    badge: 'Analytics'
+    title: 'Predictive Modeling',
+    subtitle: 'Supervised & Unsupervised ML',
+    description: 'Implementing feature imputation, EDA, cross-validation, and regression/clustering algorithms with Scikit-learn and Pandas.',
+    badge: 'Data Science',
+    accentColor: 'text-emerald-400',
+    borderGradient: 'from-emerald-500/40 via-teal-500/20 to-transparent',
+    glowColor: 'bg-emerald-500/15'
   }
 ];
-
 
 export const skills = [
   {
     id: 'frontend',
     category: 'web',
-    title: 'Frontend Development',
+    title: 'Frontend Engineering',
     icon: FaReact,
     badge: 'Core UI',
     level: 'Advanced',
     proficiency: '92%',
-    description: 'Building responsive, high-performance user interfaces with modern React paradigms and component systems.',
-    tags: ['React', 'JavaScript', 'Tailwind CSS', 'HTML5', 'CSS3', 'Bootstrap', 'Material UI'],
+    percent: 92,
+    description: 'Engineering responsive, accessible, high-throughput interfaces with modern React, component isolation, and dynamic styling.',
+    tags: ['React 18', 'Vite', 'Redux Toolkit', 'Tailwind CSS', 'Material UI', 'Framer Motion', 'JavaScript (ES6+)'],
     color: 'text-cyan-400',
-    borderColor: 'hover:border-cyan-500/40',
-    bgGlow: 'group-hover:bg-cyan-500/10'
+    barGradient: 'from-cyan-500 to-blue-500',
+    borderGradient: 'from-cyan-500/40 via-blue-500/20 to-transparent',
+    glowColor: 'bg-cyan-500/10'
   },
   {
     id: 'backend',
     category: 'web',
-    title: 'Backend Engineering',
+    title: 'Backend Architecture',
     icon: FaServer,
     badge: 'Services',
     level: 'Advanced',
     proficiency: '88%',
-    description: 'Architecting scalable server-side systems, RESTful APIs, and secure authentication flows.',
-    tags: ['Node.js', 'Express', 'REST API', 'JWT Auth', 'Socket.io', 'MVC Architecture'],
-    color: 'text-emerald-400',
-    borderColor: 'hover:border-emerald-500/40',
-    bgGlow: 'group-hover:bg-emerald-500/10'
+    percent: 88,
+    description: 'Architecting scalable server-side systems, asynchronous RESTful APIs, JWT role guards, and WebRTC/WebSocket communication channels.',
+    tags: ['Node.js', 'Express.js', 'FastAPI', 'REST APIs', 'JWT Auth', 'WebSockets', 'Socket.io', 'MVC'],
+    color: 'text-purple-400',
+    barGradient: 'from-purple-500 to-pink-500',
+    borderGradient: 'from-purple-500/40 via-pink-500/20 to-transparent',
+    glowColor: 'bg-purple-500/10'
   },
   {
     id: 'ai-ml',
@@ -100,11 +103,13 @@ export const skills = [
     badge: 'Intelligence',
     level: 'Specialized',
     proficiency: '85%',
-    description: 'Engineering intelligent models and neural network architectures for predictive tasks.',
-    tags: ['Machine Learning', 'Deep Learning', 'PyTorch', 'Scikit-Learn', 'Neural Networks'],
-    color: 'text-blue-400',
-    borderColor: 'hover:border-blue-500/40',
-    bgGlow: 'group-hover:bg-blue-500/10'
+    percent: 85,
+    description: 'Developing neural pipelines, supervised predictive models, vector retrieval architectures, and RAG systems using modern LLM APIs.',
+    tags: ['PyTorch', 'Scikit-Learn', 'Google Gemini API', 'Groq (Llama 3)', 'RAG Pipelines', 'Sentence Transformers'],
+    color: 'text-pink-400',
+    barGradient: 'from-pink-500 to-rose-500',
+    borderGradient: 'from-pink-500/40 via-rose-500/20 to-transparent',
+    glowColor: 'bg-pink-500/10'
   },
   {
     id: 'data-science',
@@ -114,11 +119,13 @@ export const skills = [
     badge: 'Analytics',
     level: 'Proficient',
     proficiency: '86%',
-    description: 'Extracting data insights, exploratory analysis, and statistical modeling with Python tools.',
-    tags: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Jupyter', 'Scikit-Learn'],
+    percent: 86,
+    description: 'Transforming complex datasets into actionable insights through exploratory data profiling, feature engineering, and statistical modeling.',
+    tags: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'EDA', 'Feature Engineering'],
     color: 'text-amber-400',
-    borderColor: 'hover:border-amber-500/40',
-    bgGlow: 'group-hover:bg-amber-500/10'
+    barGradient: 'from-amber-500 to-orange-500',
+    borderGradient: 'from-amber-500/40 via-orange-500/20 to-transparent',
+    glowColor: 'bg-amber-500/10'
   },
   {
     id: 'database',
@@ -128,11 +135,13 @@ export const skills = [
     badge: 'Data Layer',
     level: 'Advanced',
     proficiency: '90%',
-    description: 'Designing schema models and optimizing database queries for performance and data integrity.',
-    tags: ['MongoDB', 'MySQL', 'Mongoose ORM', 'CRUD Operations', 'Query Indexing'],
-    color: 'text-pink-400',
-    borderColor: 'hover:border-pink-500/40',
-    bgGlow: 'group-hover:bg-pink-500/10'
+    percent: 90,
+    description: 'Structuring robust multi-tenant data schemas, indexing document queries, and managing ACID transactions across cloud clusters.',
+    tags: ['MongoDB Atlas', 'Mongoose ODM', 'MySQL', 'Supabase Storage', 'Indexing', 'Schema Design'],
+    color: 'text-emerald-400',
+    barGradient: 'from-emerald-500 to-teal-500',
+    borderGradient: 'from-emerald-500/40 via-teal-500/20 to-transparent',
+    glowColor: 'bg-emerald-500/10'
   },
   {
     id: 'deployment',
@@ -142,11 +151,13 @@ export const skills = [
     badge: 'DevOps',
     level: 'Proficient',
     proficiency: '84%',
-    description: 'Deploying full-stack applications, managing Git repositories, and configuring cloud environments.',
-    tags: ['Render', 'Vercel', 'Git', 'GitHub', 'CI/CD Pipelines', 'Environment Config'],
+    percent: 84,
+    description: 'Managing Git workflows, deploying production frontend and containerized microservices, and orchestrating cloud CDN assets.',
+    tags: ['Vercel', 'Render', 'Git / GitHub', 'CI/CD Pipelines', 'Cloudinary CDN', 'Environment Security'],
     color: 'text-indigo-400',
-    borderColor: 'hover:border-indigo-500/40',
-    bgGlow: 'group-hover:bg-indigo-500/10'
+    barGradient: 'from-indigo-500 to-purple-500',
+    borderGradient: 'from-indigo-500/40 via-purple-500/20 to-transparent',
+    glowColor: 'bg-indigo-500/10'
   }
 ];
 
